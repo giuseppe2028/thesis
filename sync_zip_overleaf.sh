@@ -6,10 +6,8 @@ echo "-------------------------------------------------"
 echo
 
 # === CONFIGURAZIONE ===
-TESI_DIR="$(pwd)"
 LOG_FILE="$TESI_DIR/sync_log.txt"
 
-echo "[INFO] Cartella tesi: $TESI_DIR"
 echo "[INFO] File di log: $LOG_FILE"
 echo
 
