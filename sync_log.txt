@@ -1,6 +1,0 @@
-------------------------------
-Sat Nov 15 16:21:33 CET 2025
-ZIP sincronizzato: Tesi_Barone.zip
-Cartella estratta: Tesi_Barone
-Commit: init teshis
-------------------------------
