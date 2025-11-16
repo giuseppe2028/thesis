@@ -25,25 +25,31 @@
 %
 \vspace{\stretch{4}}
 %
-\makebox[\textwidth]{\null\hfill\def\arraystretch{1.1} % to change the spacing change this number
+\makebox[\textwidth]{\null\hfill
+\def\arraystretch{1.1} % per regolare lo spacing tra le righe
+
+% Blocco Supervisori
 \begin{minipage}[t]{.4\textwidth}
-    \begin{tabular}[t]{@{}ll@{}}
-        \fixednamesfont \thesissupervisortext: & \\
-         & \namesfont \thesissupervisoronename~\thesissupervisoronesurname \\
-         & \namesfont \thesissupervisortwoname~\thesissupervisortwosurname %\\
-         % uncomment if you need a third supervisor
-         % & \namesfont \thesissupervisorthreename~\thesissupervisorthreesurname
+    \begin{tabular}[t]{@{}l@{}}
+        \fixednamesfont \thesissupervisortext: \\ % etichetta
+        \namesfont \thesissupervisoronename~\thesissupervisoronesurname \\ % primo supervisore
+        \namesfont \thesissupervisortwoname~\thesissupervisortwosurname % secondo supervisore
+        % se serve, aggiungi altri supervisori qui
     \end{tabular}
 \end{minipage}
 %
 \hfill
 %
+% Blocco Candidato
 \begin{minipage}[t]{.4\textwidth}
-\begin{tabular}[t]{@{}ll@{}}
-    \fixednamesfont \thesiscandidatetext: & \\
-     & \namesfont \thesiscandidatename~\thesiscandidatesurname
-\end{tabular}
-\end{minipage}\hfill\null}\\
+    \begin{tabular}[t]{@{}l@{}}
+        \fixednamesfont \thesiscandidatetext: \\ % etichetta
+        \namesfont \thesiscandidatename~\thesiscandidatesurname % nome e cognome
+    \end{tabular}
+\end{minipage}
+\hfill\null
+}
+
 %
 \vspace{\stretch{1}}
 %

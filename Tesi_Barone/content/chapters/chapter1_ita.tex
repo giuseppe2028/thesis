@@ -1,0 +1,17 @@
+\chapter{Overview of Microservices Architecture}
+\label{sec:Overview of Microservices Architecture}
+In questo capitolo di apertura ci focalizzermo su una introduzione teorica dei sistemi a microservizi.
+
+Inizialmente introdurremo una panoramica dei sistemi a microservizi, perché nascono, e da che esigenze, per poi analizzarne approfonditamente le loro caratterische chiave, e come si configurano nel contesto del Software Engineering. Il capitolo terminerà con descrizioni di esempi reali dei sistemi a microservizi. 
+% use [] to set name for ToC
+\section[Introduction]{Introduction to Microservices Architecture} % ok with fontsize=12pt
+
+Prima di addentrarci nel pieno dell'architettura a microservzi, troviamo necessiamo approfondire i principi di questa architettura, e quale sono i fattori che hanno scaturito la loro nascita. 
+
+\subsection[Principles]{Definition and fundamental principles}
+Partiamo la nostra trattazione sui microservizi citando la definizione del "Building Microservices - Designing Fine-Grained Systems": \textit{"Microservices are small, autonomous services that work together."} I microservizi, infatti, sono degli approcci architetturali, che servono a scomporre grandi sistemi architetturali, in sistemi più piccoli, formati da componenti indipendenti che comunicano tra di loro, attraverso "ligth weigth protocols". Ogni sistema svolge una piccola business function, e sono totalmente indicpendenti, infatti, ogni microservizio può essere sviluppato in modo isolato, e deployato sepratamente dagli altri. Questo approccio permette ad un grande sistema informativo di non essere strettamente correlato ad uno specifico framewrk, o ad uno specifico linguaggio di progrmmazione, ma ogni ms, può usare un framework con le prestazioni migliori per svolgere la business function assegnata. Un vantaggio di avere questo sistema separato, è avere una dislocazione spaziale, in quanto i microservizi non necessariamente devono essere eseguiti all'interno di una macchina reale, e che nel caso un microservizi non funzioni, comunque l'applicazione continua a funzionare. 
+
+
+Non esiste una dimensione fissa dei microservizi; solitamente, ne ci si può basare su linee di codice. Solitamente un microservizio deve essere grande abbazanza da poter essere riscritto in due settimane, come scrive Jon Eaves al RealEstate.com.au , in australia. 
+I principi cardine di un'architettura a microservizi, sono: 
+- Autonomia
