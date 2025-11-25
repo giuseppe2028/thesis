@@ -1,1 +1,4 @@
-https://www.geeksforgeeks.org/system-design/microservices-design-patterns/
+
+Napkin per la generazione di immagini delle caratteristiche di un sistema distribuito
+Sistemare immagini e capitolo su USL
+Aggiungere capitolo sulla cominicazione

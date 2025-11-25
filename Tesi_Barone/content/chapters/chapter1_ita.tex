@@ -11,7 +11,294 @@ Prima di addentrarci nel pieno dell'architettura a microservzi, troviamo necessi
 \subsection[Principles]{Definition and fundamental principles}
 Partiamo la nostra trattazione sui microservizi citando la definizione del "Building Microservices - Designing Fine-Grained Systems": \textit{"Microservices are small, autonomous services that work together."} I microservizi, infatti, sono degli approcci architetturali, che servono a scomporre grandi sistemi architetturali, in sistemi più piccoli, formati da componenti indipendenti che comunicano tra di loro, attraverso "ligth weigth protocols". Ogni sistema svolge una piccola business function, e sono totalmente indicpendenti, infatti, ogni microservizio può essere sviluppato in modo isolato, e deployato sepratamente dagli altri. Questo approccio permette ad un grande sistema informativo di non essere strettamente correlato ad uno specifico framewrk, o ad uno specifico linguaggio di progrmmazione, ma ogni ms, può usare un framework con le prestazioni migliori per svolgere la business function assegnata. Un vantaggio di avere questo sistema separato, è avere una dislocazione spaziale, in quanto i microservizi non necessariamente devono essere eseguiti all'interno di una macchina reale, e che nel caso un microservizi non funzioni, comunque l'applicazione continua a funzionare. 
 
-
 Non esiste una dimensione fissa dei microservizi; solitamente, ne ci si può basare su linee di codice. Solitamente un microservizio deve essere grande abbazanza da poter essere riscritto in due settimane, come scrive Jon Eaves al RealEstate.com.au , in australia. 
 I principi cardine di un'architettura a microservizi, sono: 
-- Autonomia
+\newcounter{principio}
+\renewcommand{\theprincipio}{\Roman{principio}}
+
+\setcounter{principio}{0}
+
+\paragraph{\theprincipio. Autonomy} 
+\stepcounter{principio}
+Ogni microservizio è indipendente, sviluppabile e deployabile separatamente dagli altri, senza interferire sul sistema complessivo. Questo significa che ogni sistema ha il suo runtime?, e il suo schema. Questo garantisce un affidabilità delle performance e uan qualità del servizio maggiore. 
+
+\paragraph{\theprincipio. Loose coupling} 
+\stepcounter{principio}
+Le dipendenze tra i microservizi vengono minimizzati utilizzando il principio del \textit{"loose couplig"}, il quale permette attraverso delle API, di avere un disaccompiamento tra i sistemi. Questo si traduce nel fatto che un cambiamento di un sistmea, non rompe altri sistemi. Questo è dovuto al fatto che ogni sistema, comunicando attraverso API, mantiene sempre lo stesso standard, garantendo una protezione anche se il sistema chiamante cambia le proprie implementazioni. 
+
+Il \textit{"loose couplig"}, inoltre, garantisce maggiore efficienza e agilità nell’architettura, il quale contribuisce a ridurre i costi di coordinamento e a ottenere risultati più rapidi.
+
+\paragraph{\theprincipio. Reuse} 
+\stepcounter{principio}
+Il riuso contiua ad esere uno dei principi cardine dell'architettura a microservizi. Anche se è prettamente comune nella costruzione di grandi sistemi informativi, e quindi non strettamente legato al mondo dei microservizi, esso trova anche grande usabilità in questo mondo. 
+
+Infatti, se più microservizi utilizzano una stessa chiamata, o uno stesso standard, si prefersice esternalizzare quella chiamata, e spostarla su un microservizio dedicato. 
+\paragraph{\theprincipio. Fault tolerance} 
+\stepcounter{principio}
+Come disse Algirdas Avizienis, Jean‑Claude Laprie, Brian Randell, Carl Landwehr \textit{"Fault tolerance means to avoid service failures in the presence of faults."}. In un contensto a micoresvizi, se un componente fallisce, essi hanno la capacità di continuare a funzionare, proprio perhè la fault tolerance è la capacità di un servizio di continuare a funzione anche in presenza di fallimenti, questo consente  di avere un impatto minimo sulla SLA. %TODO metti definizione magari con un indice
+Avere un sistema a microservizi, significa infatti, tagliare le comunicazioni con il microservzio non funzionante; tale meccanismo è detto "\textit{cricuit braker}", esso è infatti ispirato dal mondo dell'elettronica da cui prende il nome. Questo è fatto proprio per isolare i fallimenti individuali, evitando di propagarli in sistemi più grandi. 
+
+\paragraph{\theprincipio. Composability} 
+\stepcounter{principio}
+La composabilità è il principio secondo la quale un sistema puè essere componiile, ovvero possiamo pensare ad un servzio come anche un insieme di microservizi, il quale, unito ad altri microervzi può generarsi di nuovi, con nuove caratteristiche, rendendo l'architettura generale poco complessa.
+    
+\paragraph{\theprincipio. Discoverability} 
+\stepcounter{principio}
+Tutte le API %TODO mettere indice che cosa sono le API
+che espone un microservizio possono essere comunicate ad altri team, o ad altri microserzi i, questi permettono infatti, di rappresentare una chiara comprensione del business del micorservizio, e delle interfacce che essi mostrano. Queste API devono essere comunicate in modo tale che anche altri sviluppatori possono integrarle nei microservizi da loro sviluppati.
+
+\subsection{Modularity and service independence}
+Un sistema a microservizi, è un pattern architetturale il cui obiettivo è rendere un'applicativo di uqalisasi dimensione, resiliente, higly scalable, independentry deployable e capace di evolvere in fretta. Per questo costruire un'applicazione a microservizi signigifica adopoerare uno stile di progettazione che sia quanto più mirato a scomore un problema in servizi. Nella quale si deve adottare l'approccio classico del separation of concerns, ovvero ogni singolo mcirservizio svolge solamente il compito che gli compete, ed interacsce con gli altri mmicroservizi, per raggiungere uno scopo comune più grande.
+Forniamo un esempio di come un'architettura a microservizi dovrebbe essere divisa : 
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.6\textwidth]{images/chapter1/chap1_1.1.2_1.png}
+    \caption{Example of a microservice architetture}
+    \label{fig:my_figure}
+\end{figure}
+
+Come è espresso dall'immagine proposta ogni microservizio si occupa di una specifica parte dell'alicatiovo. Elaborando solamente quel tipo di dato, e scrivendo in un database a cui solo lui ha accesso. Questo permette che il punto di rottura sia decentralizzato, e che nel momento in cui vi è un problema con una parte dell'applicativo sia possibile individuarla facielmtne. 
+
+Intolre, quanto detto, scaturisce anche un'indipendenzaq da altri microservizi, in quanto ognuno di essi, lavora e vive anche con l'assenza di altri microservizi, ed è ignari dell'esistena di qeust'ultimi. 
+Inoltre, la loro indipendenza, permette, come detto nel paragrafo precedente, che un microservizio può essere sviluppato con una tecnologia totalemente differenze dalle altre. Questo prende il nome di 
+Polyglot Architecture, il quale allowing engineers to use the best possible technology for different features in developmen.
+Ad esempio nel libro "Microservice architetture", possiamo avere una dimostrazione di come laorano i diversi microservizi attraverso questa immagine:
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.7\textwidth]{images/chapter1/chap1_1.1.2_2.png}
+    \caption{Example of Polyglot Architecture in a Microservice Asrchitetture}
+    \label{fig:my_figure}
+\end{figure}
+
+
+\subsection{Scalability, resilience, and maintenability}
+%universal scsalability law??
+La scalabilità è un fattore fondamentale, nel monento in cui si progetta un sistema a mcroservizi, perchè un sistema a si definisce \textbf{scalabile} se è in grado di gestire un costante aumento di richieste e di workload, senza presentare difficoltà.
+
+%%definire la scalabilità
+
+Esistono due tipologie di scsalabilità di un sistema: 
+
+\begin{itemize}
+    \item \textbf{Scaling up}: La capacità di un sistema di far fornte ad un incremento di lavoro, e richieste incrementando le capacità computazionali, quali, storage, comunication elements, CPU, RAM, and other harware components. Ovviamente l'approccio scaling up è limitativo, per via della limitazione delle risorse attaulmente in commercio.
+    \item \textbf{Scaling out}: Esso Interessa come modificare il modo in cui un sistema architetturale è definito, ad esempio aumentare il numero di maccihine deployate in un sistema. Quest'ulimo approccio è particolarmente usato nel modno reale, nella quale i sistemi distrubiti sono formati da più macchiari con capacità computazioni limitate, il quale garantiscono insieme, la possibilità di affrontare un workload maggiore, lavorando parallelamente.
+\end{itemize}
+
+
+
+Ci concentremento, sull'approccio scaling out, il quale risulta quello che ha un maggiore impatto, nel mondo reale dei sistemi distribuiti. Ci sono diverse tecniche che pososono essere utilizzati quali: 
+
+\begin{itemize}
+    \item \textbf{Partioning and work distribution}: Esso consiste in dividere una task, in sottotask più piccole, e dividerle su diversi nodi all'interno del sistema, in modo tale da distribuire il workload. In modo tale che se le richieste al sistema aumentano, iù processi su più macchine possono essere aggiunte per gestirle.
+    \item \textbf{Replication}: Involves la capacità di creare copie di processi, in modo tale da distribuire il workload o i dati tra questi processi, ed aumentarne le performance. Ad esempio, si possono pensare più replice di uno stesso microservizio su più nodi sparsi in giro per il mondo, in modo tale da incrementare la velocità di accesso a questi sistemi. Ad esempio il Web server clusterning, è una prova chiara, di come server multipli possono essere utilizzati per ditribuire il carico e aumentare l'availability
+    \item \textbf{Comunication latency hiding/limitation}: Essa è un'altra techina utilizzata per lo scaling out. In questa tecnica si preferisce utilizzare una comunicazione asincrona rispetto ad una rincorna, al fine di ridurre il tempo speso per l'attesa di risposta. Tale tecnica è utilizzata per ridurre la comunication latency.
+\end{itemize}
+
+\subsubsection{Universal Scsalability Law}
+Secondo quanto detto, sembra corretto e pertinente fornire una panoramica su come il sistmea reagisce all'aumentare della scalabilità. Per questo trattiamo dell'\textbf{universal scalabilty law}. Tale legge, scoperta dall'australiano Dr.Neil Gunther, ricercatore dei sistemi informatici, il quale ha definito che la capacità di un sistema che può essere scalato, fino ad un certo non si ha una scalatura delle performace, che è diretttamente proportzionale all'umterare dei nodi. Infatti, assomuano che c sia un serve, il qulle lavora a 2000 transazioni per secondo in un sono nodo. Se aumentiamo il numero di nodi a due, ci aspetteremo un numero di transazioni al secondo pari a 4000. In verità questo non è del tutto vero, in quanto il loro throughtput finale è leggermente inferiore a 4000 transazionizioni al secondo. La situazione peggiorerà se il numero di macchine sarà aumentato. Da qui, dopo aver oltreppassato una particalre soglia il sistema non solo diminuisce lo speedup, ma si avrà un retrograde speed up, nonostante il sistema venga scaato. Tale comportamento sarà rappresentato dalla figura che mostriamo: 
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{images/chapter1/chap1_1.1.3_1.png}
+    \caption{Graph that shows the andamento of a scalable up ssytem}
+    \label{fig:my_figure}
+\end{figure}
+
+
+
+Per questo motivo è stata proposta l'universal scalability law, il quale, un il throughtput di un sistema può esssere apprissimato dalla seguente equazione (deravata dal queueing theroy):
+\begin{equation}
+    X(N) = \frac{N\cdot\gamma}{(1+\alpha\cdot(N-1)+\beta\cdot N\cdot (N-1))}
+\end{equation}
+dove:
+\begin{itemize}
+    \item $N$ è il numero di unità concorrenti;
+    \item $\gamma$ rappresenta il throughput normalizzato del sistema con una singola unità;
+    \item $\alpha$ indica il \textit{resource contention}, ovvero il costo di contesa per risorse condivise 
+          (ad esempio database, lock, code o componenti centralizzati);
+    \item $\beta$ rappresenta il \textit{coherency cost}, ossia il costo di sincronizzazione e comunicazione 
+          tra le unità del sistema (ad esempio scambio di messaggi, replica dello stato o coordinazione fra microservizi).
+\end{itemize}
+
+\textit{La resilienza, in un sistema è la capacità di un sistema di recover da uno stato di contui failues}. Specialmente in un sistema a microservizi, la resilenza è un punto cruciale,in quanto rappreenta quanto un sistema sia stabile ed operazinale. Sopratutto in un sistema dove i servizi sviluppati sono numerevoli, e la possibilità che ci sia un fallimento è inevitabile, per cause quali: rete, hardware e software. 
+Adesso ci accingermo a spiegare quali sono i pilasti fondamentli della resilienza in un'architettura a microservizi: 
+\begin{itemize}
+    \item \textbf{Fault Isolation}: Un'architettura a microservizi garantisce una resilienza in failues di un singolo servizio, in quanto essento tanti servizi separati, il fallimenti di un singolo servizio, non porta alla limento (bring down) dell'interno sistema.
+    \item \textbf{Continuous Availability}: Come diretta conseguenza del punto precedente, il fatto che il sistema è formato da servizi più piccoli, e che è posssibile replicare questi sevizi in diverse parti del globo, si puà manternere un'availabiltiy abbastanza alta anche quando diversi serbizi non sono disponibili. 
+    \item \textbf{Scalability and Elasticity}: La Resilienza è nettamente legata alla scalabilità di un sistema, in quanto se la capacità di un sistema aumenta, esso diminuisce i fallimenti a cui va incontro. A sua volta, se un sistema riesce a scalare autonomamente, vovero che aggiunge o diminuisce il numero di nodi, la resilienza sarà garantita maggiormente da un sistema completamente statico non in grado i essere scalato. 
+    \item \textbf{Improved User Experience}: La resilienza di un sistema può portare a migliorare l'esperienza utente geneale, proprio perché la resilienza garantisce che, anche in caso di guasto, attuando la tecnica del \textit{graceful degradation}, un'applicazione fonrisce le funzionalità necessarie agli utenti, non compormettendo l'esperienza utente generale.
+    \item \textbf{Quick Recovery}:  I SISTEMI RESILIENTI POSSONO recuperare dai falimenti automaticamente o con iinterventi manuali più piccoli di un applicazione monolitica. Questo permette di ridurre i tempi di downtime, e di ritutte gli impatti nel service availability.  
+    \item \textbf{Fault Tolerance}: I stemi resilienti garantiscono Importanti meccanismo per incrementare la fault tolerance come \textbf{circuit breakers}(isolare un sistema), \textbf{timeouts}, \textbf{retries} per gestire tutti gli errori, e degradanto le performance senza causare disservizi.
+    \item \textbf{Decentralized Communication}: Un sistema resilente la maggirparte delle volte si basa su un sistema che utilizza un approccio decentralizzato come mezzo di ocmunicazione, such as asynchronous messaging or event-driven architectures. Qesto garantisce che in caso di problemi di comunicazione il sistema comunqe continui a funzionare.
+      \item \textbf{Continuous Testing and Deployment}: Un sistema relisiente deve passare pratiche di testing e continuus deployment rigoroso.  Tra Automated testing, canary deployments, and blue-green deployments help ensure that changes are rolled out safely and don't introduce vulnerabilities or instabilities.
+\end{itemize}
+
+\subsubsection{Challenges in Achieving Resilience}
+Ovviamente un sistema a microservizi che sia quanto più resiliente, porta con se delle sfide che devono essere combattute. Tra queste abbiamo: 
+
+\begin{itemize}
+    \item \textbf{Distributed Complexity}: Managing numerous interconnected microservices introduces complexity in monitoring, debugging, and tracing issues across the distributed system. Understanding how each service interacts and ensuring fault isolation becomes challenging.
+    \item \textbf{Inter-service Communication}: Microservices rely heavily on communication between services, often over networks. This introduces latency, network failures, and potential communication bottlenecks, requiring robust communication protocols and error-handling mechanisms.
+    \item \textbf{Data Consistency and Integrity}: Maintaining data consistency across microservices can be challenging, especially in distributed transactions. Ensuring data integrity and synchronization without introducing performance bottlenecks or single points of failure requires careful design and implementation.
+    \item \textbf{Resilience Testing}: Testing the resilience of microservices systems is complex and often requires specialized tools and techniques. Simulating various failure scenarios, such as network partitions, service outages, or latency spikes, can be challenging but is crucial to ensuring system stability.
+    \item \textbf{Dependency Management}: Microservices rely on each other for functionality, making them dependent on external services and APIs. Managing dependencies and handling versioning, backward compatibility, and service discovery become critical to maintaining system resilience.
+       \item \textbf{Scalability and Resource Management}: Scaling microservices dynamically to handle varying workloads requires efficient resource management and orchestration. Ensuring that resources are allocated appropriately and automatically adjusted based on demand can be complex, especially in highly dynamic environments.
+          \item \textbf{Security and Compliance}:Securing microservices architecture involves securing communication channels, implementing access controls, and managing authentication and authorization across distributed services. Ensuring compliance with regulatory requirements adds another layer of complexity to the resilience equation.
+
+\end{itemize}
+
+\subsubsection{Maintenability}
+La maintenabilità fa capo a come un microservizio può essere facilmente modificato, scalato e deployato, senza intaccare le performance di un sistema. In un sistema monolitico, il problema grande da affrontare è la maintenability, proprio perchè se non si seguono dei principi rigidi, e di codice e architettura pulita, il sistema potrebbe diventare difficilemtne mantenibile, proprio a causa dell'elevato numero di codice e dipendente all'interno del sistema. Al conteraio un sistema a microservizi risulta più mantenibile proprio a causa della grandezza dei piccoli sistemi di cui è composto. Putroppo, anche nel monto dei microservizi, la mantenibilità dei sistemi puà portare a delle problematiche, dobuto alla natura distribuita dei microservizi, che in quanto tale devono far capo a problematiche di rete, consistenza tra le repliche, e sincronizzazione. 
+Come detto ogni codice mantiene una proprio ciclo di vita all'interno del sistema. Partendo dal sistema di versioni completamente indipendente per ogni ms, fino ad una struttura di codice totalmente differte. Nel mondo dei microservizi, essendo ogni microservizio facente parte di un sistema molto più grande, può proseguire una via di sviluppo, ed un ciclo di vita diverso dagli altri servizi. Questo apprroccio grantisce che ogni servizio sia mentiibile e che non si debba adeguare agli standard degli altri servizi in fatto di mantenibilità e resilienza. Questo però da osservare, in quanto diversi microservizi possono cambiare standard di API e documentazione differente. Questo causa molti problemi nei microservizi, specialemtne se ogni microservizio è gestito in modo differente da diversi teams.
+
+Putroppo l'architettura a microservi soffre di altri problemi di mantenibilità, che possono essere causati da un rapido svilppi dei servizi, e che possono portare ad una crescita repentina, il quale porta a : 
+
+\begin{itemize}
+    \item \textbf{Code Duplication and Divergence}: perchè team diversi che si muovono rapidamente, non si preoccupano di disegnare un'architettura pulita fin dal principio, cambiando quindi API e business logic, e rendendo il tracking delle API, molto complicato.
+    \item \textbf{ Inconsistent Standards}: \label{chap1:Inconsistent Standards} Tema differenti adottano pratiche differenti di gestioe dei micrservizi, come (logging, error handling, REST patterns).
+    \item \textbf{Tight Coupling Through APIs}: Services may rely too heavily on each other’s internals or synchronous APIs.
+    \item \textbf{Over-Proliferation of Services}: The “micro” mindset encourages splitting everything.
+    \item \textbf{Operational Complexity}: Scaling services adds complexity to deployment, monitoring, logging, versioning, and rollback.
+    \item \textbf{Tooling and CI/CD Gaps}: New services may bypass shared pipelines or monitoring setups.
+    \item \textbf{Hidden Technical Debt}: Shortcuts are taken to meet scaling demands or launch faster.
+\end{itemize}
+Maintainability suffers during rapid scale because speed often beats structure. Without enforced standards, proper tooling, and architectural discipline, the microservices landscape becomes chaotic, costly to change, and hard to understand.
+\subsection{Use cases in real-world scenarios}
+In questa sezione parleremo di due pilastri che hanno cambiato il mondo moderno, e che usano un'architettura a microservizi nei loro sistemi. Il primo, colosso mondiale della vendita online, Amazon, ed il secondo, colosso che ha rivoluzionato l'industria dei film, Netflix. 
+\subsubsection{Use case: Amazon} 
+Il caso amazon, delinea, la differenza tra architettura monolitica ed architettura a microservizi, proprio perchè questa azienda iniziò il suo approccio al mondo digitale con un sistema monolitico, per poi migrare verso un sistema a microservizi. 
+Amazon, azienda nata nei primi anni del 2000, sviluppo il proprio servizio di retail come una grande applicazione monolitica. Questo porta ben presto, visto la sua rapida crescita e visto l'architettura utilizzata di dover continuamente modificare, e upgradare il codice con un'attenzione maniacale, in quanto essendo un'applicazione monolitica qualsiasi errore poteva costare la rottura totale del sistema. Inizialemnte l'architettura monolitica lavorava abbastanza bene nella realtà di amazon, ma visto che il team di amazon cresceva sempre di più, lavorare in una singola codebase diventava veramente difficile. Per questo motivo si scelse di cambiare approccio architetturale. Nel 2001, il team di ingegneri di amazon decise di refattorizzare la codebase da zero, scomponendo il sistema monolitico in sottosistemi più piccoli ed indipendenti tra loro. L'uso dell'approccio a microservizi aiutò molto l'azienda, rendendo il sito molto più mantenibile da parte del team di sviluppo, cambiando individual features e resources, rendendo il sito molto più efficiente. 
+I Developers di amazon hanno analizzato e scomposto il codice sorgente in microservizi. Questo approccio fu molto complesso proprio perchè il sistmea era abbastanza coupled. Ma una volta che sono riusciti a scomporre il codice, lo hanno diviso tra le diverse business unit. L'approccio utilizzato era dividere il sistema in web service interface, ovvero assegnare ad ogni team, una parte dell'interfaccia web. For example, they developed a single service for the Buy button on a product page, a single service for the tax calculator function, and so on. Each function had its own section.
+Ad ogni team, inoltre fu assegnato di risolvere i colli di bottiglia dei sistemi. Ogni team succed in resolving it, grazie a fatto che la dimensione di ogni team era più piccola, come anche la dimenisone della code base su cui ogni team lavorava. Questo ha garantito una maggior attenzione ai dettagli per ogni microservizio. 
+Risultate di questo approccio è l'immagine dei microservizi operativi in amazon nel 2008.
+
+
+\subsubsection{Use case: Uber} 
+Similmente con quanto visto in Amazon, anche uber, nonostante sia nata nel 2010, periodo in cui l'esperienza di amazon, dalla transazione da un applicazione monolitica ad una a microservizi doveva essere da esempio, nacque come sistema monolitico. 
+In questo caso, in modo quasi analogo ad amazon, anche uber si rese conto delle limitazioni di un'applicazione monoltica. Specialmente le limitazioni riscontrate dal team di delopment furono difficolta a lanciare nuove funzionalità in modo efficente, fix of bugs e integrare rapidamente una growing global operations. 
+Inizialmente l'architettura di uber era strutturata nel seguente modo: 
+I Passengers and drivers connected to Uber’s monolith through a REST API. All'interno dell'applicazione monolitica erano presenti three adapters – with embedded API for functions like billing, payment, and text messages. Era presente un solo database sql, il quale era alla base per tutte le operazioni che venivano eseguite sul monolite. E tutte le features erano all'interno del monolite. 
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/chapter1/chap1_1.1.4_1.jpg}
+    \caption{Monolithic architetture of uber}
+    \label{fig:my_figure}
+\end{figure}
+
+Per affrontare queste difficoltà uber decise di scomporre la propria architettura da monolite a micrservizi. 
+Subsequently, developers built individual microservices for functions like passenger management, trip management, and more. Tutti questi servizi accessibili attraverso un API gateway. 
+Andando verso un'architettura a microservizi, il team di uber si è reso conto immediatamente dei vataggi che esso occupa. Prima di tutto il sistema è stato immediatamente più mantenibile da parte degli sviluppatori. Succesivamente il software è cresciuto più velocemente perché lo fast scaling è molto più facilitato. 
+Il problema che ha riscontato il team di uber, è la coordinazione dei team di tutti questi microservizi. Per questo motivo si all'interno dell'azienda si è adottato un apprio più orientato alla docuentazione, tetnando di rimuovere il \textit{techinical debt} che molte anziende si prendono carico, scrivendo una documeentazione adeguata fun da subito. Questo ha evitato che una confuzsione dei teams e dei microservizi. Prblema che abbiamo riscontatro nella sezione ~\ref{chap1:Inconsistent Standards}.
+The three key steps for implementing microservice standards at Uber included group buy-in, determining organizational production ready requirements, and making production readiness part of the engineering culture. There need to be quantifiable requirements that can be tested.
+
+"It is a long process but makes a big difference," said Fowler. "Developers all want to make the best thing they can. Standardization is not a gate, it is not a hindrance. It is something you can hand developers, saying, ‘I know you can build amazing services, here’s a system to help you build the best service possible.’ And developers see this and like it.".
+Quindi prima they analyzed the principles that resulted in availability — like fault tolerance, documentation, performance, reliability, stability, and scalability.
+Una volta termianato ciò, applicano metriche quantitative, e logiche di business, che ogni developer può consultare. Una volta terminato ciò trasformano tale metriche in standard globali per il secondo microservizio. 
+
+\begin{figure}[ht]
+    \centering
+
+    \subfloat[System design of microservices in Uber]{%
+        \includegraphics[width=0.45\textwidth]{images/chapter1/chap1_1.1.4_3.jpg}
+        \label{fig:sub1}
+    }
+    \hfill
+    \subfloat[Real design of microservices in Uber]{%
+        \includegraphics[width=0.45\textwidth]{images/chapter1/chap1_1.1.4_4.jpg}
+        \label{fig:sub2}
+    }
+
+    \caption{rappresentation of microservice in Uber}
+    \label{fig:two_subfigs}
+\end{figure}
+
+
+
+\section{Differences with Monolithic Architecture}
+Dopo aver affrontato una panoramica sull'architettura a microservizi, guideremo la nostra trattazione verso una panoramica dell'architettura monolitica, definendone le caratteristiche, ed i principi chiame. La sezione si concluderà con una comparazione tra l'architettura monolitica e l'architettura a microservizi. 
+
+\subsection{Structure and characteristics of a monolithic application}
+A monolithic, in system desing, is defined as a methodology that comines various parte of systmem in a single codebase. His history took place since the first years of computer era,in the mid-20th century. Nato dal fatto che le tecnologie dell'epoca non erano ancora in grado di supportare un approccio a microservizi, spesso si eseguiva dcodice, scritto con linguaggio a basso livello, in una singola codebase, perché comunque il codice era scritto al fine di poter essere eseguito su una singola macchina. Con il passare degli anni, e l'avanzare della tecnologia, nuove architetture e nuovi paradigmi di programmazione sono tati. Partendo dal nuovo paradimga di porgrammazione quale il linguaggio ad oggetti, il quale ha permesso un'astrazione dall'architettura dei calcolatori, aggiungendo layers, per una programmazione non orienta sull'hardware; ad uno sviluppo delle reti network, sempre più crescente. Per questo motivo nacquero nuovi sistemi, e nuove architetture, quale la ervice-Oriented Architecture (SOA). 
+
+In the monolithic architecture, all the process are thightly interconnected and they runs in a single service, this lead in difficultes in introducing updates in the entire system. This approach is simple to develop and deploy and is excellent for small, simple applications.
+Questo approccio particolamente gradito, per piccoli progetti, rapprensenta un nel caso in cui bisogna fornire un facile e veloce setup iniziale di un progetto.
+Nonostante il lento abbandono di questa architettura, dovuta ad una costante dell'architettura a microervizi, comunque l'approccio monolitico in alcuni caso può essere preferito ad un approccio a microseervizi, per sua semplicità, e facilità di deployment in un singolo pacchetto. Rendendo tale approccio facile pe piccole realtà con un numero di persone in team limitato. 
+L'architettura monolitica presenta dei vantaggi in diversi ocntesti: 
+\begin{itemize}
+    \item \textbf{Simplicity}: Un architettura monolitica offre uno sviluppo ed un deployment più lineare. Esso è molto semplice per i developers, in quanto è è tutto raggrupapto in un unico pacchetto ed hanno così una visione generale del sistema. 
+    \item \textbf{Cost-Effectiveness}: L'architettura monolitica può essere più economica per le startups o per le impree di media dimensione. Questo perchè, comparato ai sistemi deistribuiti, richiedono minor infrastructure overhead.
+    \item \textbf{Performance}: Siccome tutto il sistema gira all'intenro di una sola macchina, il sistema offre performace maggiori, a causa di un ess communication overhead between components.
+    \item \textbf{Security}: Siccome vi sono minor punti di inter-service communication, i sistemi monoliticano riducono drasticamente le superfici di attacco. Questo li rende più sicuri, soprattuo se sono state svilupapte misure di sicurezza adeguate. 
+\end{itemize}
+
+Inoltre l'architettura a microservizi fornisce diverse caratteristiche: 
+\begin{itemize}
+    \item \textbf{Single Codebase}: The program is simpler to manage and implement since all of its components are created and maintained in a single codebase.
+    \item \textbf{Tight Coupling}: The architecture's components are closely linked, rely on one another, and frequently exchange resources and data directly.
+    \item \textbf{Shared Memory}: Monolithic applications typically share the same memory space, allowing components to communicate efficiently without the need for network overhead.
+    \item \textbf{Centralized Database}: Data storage is centralized within the application, typically using a single database instance for all data storage needs.
+    \item \textbf{Layered Structure}: The structure of monolithic systems is frequently layered, with separate layers for data access, business logic, and presentation. This might result in dependencies across layers even while it separates issues.
+    \item \textbf{Limited Scalability}: Because the entire application must be scaled at once, scaling a monolithic application can be difficult and frequently leads to inefficiencies and higher resource usage.
+\end{itemize}
+Monolithic system design focuses on preserving manageability, consistency, and simplicity within a single codebase. Some of the key design principles are:
+
+\begin{itemize}
+    \item \textbf{Modularity}: Even though a monolithic system consists of a single codebase, it's essential to structure the code in a modular way.
+    \item \textbf{Separation of Concerns}: According to the separation of concerns principle, several application components should be responsible for separate tasks. For instance, debugging is made easier and code organization is made clearer by separating the user interface logic from business and data access logic.
+    \item \textbf{Scalability}: Architecting the system to support horizontal scaling when necessary is known as ``scalability design.'' This might involve introducing asynchronous processing for resource-intensive operations, employing caching methods, or optimizing performance-critical components.
+    \item \textbf{Encapsulation}: Encapsulation is the process of revealing only the interfaces that are required for interaction while hiding the core operations of a component. Developers can reduce dependencies and make code maintenance and evolution easier by encapsulating functionality within clearly defined interfaces.
+    \item \textbf{Consistency}: Maintaining consistency in coding styles, architectural patterns, and design principles across the entire codebase ensures clarity and predictability for developers.
+\end{itemize}
+
+\subsection{Conceptual comparison with microservices: advantages and disadvantages}
+In questa sezione parleremo dei vantaggi e svantaggi tra l'architettura monolitica e l'architettura a microservizi. Durante la trattazione del capitolo, si è comunque emerso la differenza e vantaggi e svantaggi che l'utilizzo di tali architetture porta, ma in questa sezione cercheremo di riassumerle e schematizzarle; fornendo così un quadro chiaro e lineare con delle conclusioni sul loro utilizzo.
+Come indicato nelel sezioni precedenti, ma che cercheremo di riassumere puntaulemte, i vantaggi dell'archiettura a microservzi sono molteplici rispetto ad una archiettura monolitica. L'architettura a microservizi, essendo frutto di una scomposizioni di sistemi, in sottostistemi più piccoli, rappresenta prima di tutto un notevole vantaggio quando si lavora con una codebase di grandi dimensioni, rendendo essa più gestibile e divisibile tra i vari team di sviluppo. Inoltre, essendo tale pattern architetturale formato da diversi sistemi che sono tra di loro componibili, la facilità di scalare ed aggiungere più servizi che svolgono operazioni atomiche è notevolment epiù alta rispetto ad un'archiettetura monolitica. 
+I microservizi, inoltre, sono un pattern più robusto rispetto ad un'applicazione monolitica, in quanto se un servizio smettesse di funzionare, comunque l'andamento generale del sistema non viene compromesso. 
+Putroppo come qualsiasi pattern, anche le architetture a microservizi presentano degli svantaggi, che, se non attenzionati possono comunque portare a disfunzioni gravi. 
+\begin{itemize}
+    \item \textbf{Increased Complexity}: Un sistema a microservizi deve gesitre necessariamente la comuncazione tra tutti i sistemi. Questo porta ad una complessità di gestione dei dati all'interno dell'applicativo, con particolare attenzione alla consistenza, e alla comunicazione, tenendo conto del fatto che un cambiodi riposta da un sistema porta necessariamente un cambio di interpretazione del sistema chiamante. 
+     \item \textbf{Distributed System Overheads}: Microservices introduce network communication between services, which adds overhead compared to in-process communication in monolithic systems. This can lead to latency and performance issues.
+      \item \textbf{Data Management Challenges}: Each microservice is responsabile to manage it's data. But sometimes, a resource could be shared between multiple microservices, this introduces the problem of data consistency and distributed transaction.
+       \item \textbf{Increased Deployment and Operational Overhead}: A microservice architetture requires to have an optimun infrastrucuture and tooling. Because, if there are multiplus sistems, continous integration and deployment could lead to a complication of management, requiring sophisticated monitoring and management systems.  
+        \item \textbf{Inter-Service Communication Issues}: Microservices comunicate throught network, this introduce some problems that monolithic systems don't have, such as network failures, latency, and the need for proper API versioning and management
+        \item \textbf{ Testing Complexity}: Testing microservices can be more complicated than testing a monolithic application, as it involves ensuring that each service functions correctly both in isolation and in interaction with other services.
+\end{itemize}
+Contrariamente, i sistemi monolitici, presentano dei vantaggi, che in alcuni contesti possono essere preferibili ad un'architettura a microservizi.
+Essi infatti sono particolamente performanti in: 
+\begin{itemize}
+    \item \textbf{Simplicity of development}:
+    \item \textbf{Simplicity of debugging}: Debuggare un'applicazione monolitica è molto semplice proprio perché tutta la logica è locazitta in un solo codice, questo rendere più semplice seguire il flow del programma. 
+    \item \textbf{Simplicity of testing}: Puoi testare più facilemtne tutto il sistema, e sai che l'errore può avenire solo quel punto di rottura, e no da altri come l'architettura a microservizi. 
+    \item \textbf{Simplicity of deployment}: Tutto è direttamente deployato in un singolo file. Spesse volte esso contiene sia frontend che backend. Questo rende molto semplice il deploy su infrastrutture. 
+    \item \textbf{Simplicity of application evolution}: E' facile tracciare e vedere l'evoluzione di un programma, in quanto il codice è molto più lineare rispetto ad un'applicazione monolitica. 
+    \item \textbf{Cross-cutting concerns and customizations are used only once}: Tutta la configurazione che riguarda la sicurezza, il logging, il monitoring, è tutto più gestibile, proprio perchè tutto il sistema segue uno stesso standard che è stato definito solo una volta. 
+    \item \textbf{Simplicity in onboarding new team members}: Un sistema monolitico risulta più semplice da esseere compreso da nuovi membri del team. Proprio perchè loro possono avere una visione di insieme di tutto il sistema. 
+    \item \textbf{Low cost in the early stages of the application}: All source code is located in one place, packaged in a single deployment unit, and deployed. What can be easier? There is no overhead neither in infrastructure cost nor development cost.
+\end{itemize}
+
+Ovviamente anche un sistema monolitico presenta dei problemi. Le challenge che sistema monolitico deve affrontare sono: 
+
+\begin{itemize}
+    \item \textbf{Long Deployment Cycles}: Rispetto ad un microservizio, un sistema monolitico ha tempi di deployment molto più lunghi rispetto ad un sistema a microservizi, proprio perché, nonostante come si sia visto questa architettura risulti più semplice, essa deve affrontare un ciclo di testing e deployment su tutte le unità, e questo porta molto tempo. 
+    \item \textbf{Risk of Downtime}: Un piccolo bug nel sistema monolitico può completamente portare offline l'intero sistema.
+    \item \textbf{Limited Scalability}: Un sistema monolitico può essere solamente scalato in verticale, questo rende tale sistema estremamente limitato, quando il numero di utenti aumenta.
+    \item \textbf{Resource Consumption}: Compared to more lightweight architectures like microservices, monolithic programs may use more memory and CPU. This may result in decreased overall efficiency and increased infrastructure expenses.
+    \item \textbf{Limited Flexibility}: Compared to architectures with separated components, it can be more difficult to make modifications to a monolithic application. Modifications may require altering several areas of the codebase, which raises the possibility of adding errors or inconsistencies.
+
+    \item \textbf{High code coupling}:  Of course, you can keep a clear service structure inside your repository. However, as practice shows, eventually, you will end up with a spaghetti code in at least a few places. As a result, the system becomes harder to understand especially for new team members.
+\end{itemize}
+In conclusione non esiste un sistema migliore di un altro, ma analizzando le storie delle grandi aziende che hanno fatto la storia dell'informatica, ed analizzando i vantaggio e gli svantaggi di tale approccio, è facile concludere che un approccio monolitico può essere utile, e fondamentale nel caso in cui un sistema deve essere strutturato per una piccola azienda, che non ha un team di sviluppo molto complesso, e la cui infrastruttura informatica non si deve interfacciare con un numero sempre crescente di casi d'uso o di utenti che utilizzano il software. Fornire in questo caso un applicativo a microservizi per questa azienda potrebbe diventare altamente inefficiente e inutilmente complesso. Se, al contrario, si prevede che un sistema debba crescere in breve tempo, è sempre meglio pensare già ad un approccio a microservizi, in modo tale da non dover riscrivere l'architettura come è stato già fatto come grandi aziende come amazon, uber. 
+
+\section{Microservices Architecture in Real-World Context}
+In questa sezione ci concetremeno su un aspetto più tecnico dell'architettura a microservizi. Analizzando gli algorimtni e i design patter utilizzati nel mondo reale, per infine entreare nel dettaglio di come i microservizi vivono all'interno di macchine distribuite in tutto il mondo.
+\subsection{Architectural patterns and integration mechanisms in microservices}
+\subsection{Orchestration and containerization with Docker and Kubernetes}
+
+%\section{Data Consistency and Communication between Microservices}
+
+%\subsection{Consistency challenges in distributed systems}
+%\subsection{Communication methods: synchronous and asynchronous}
+%\subsection{Design considerations on consistency, reliability, and scalability}

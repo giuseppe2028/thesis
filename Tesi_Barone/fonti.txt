@@ -1,0 +1,65 @@
+%ogni fonte è composta da {parte di articolo citato}{fonte}
+%capitolo 1
+{\begin{enumerate}
+    \item Autonomy
+    \item Loose coupling
+    \item Reuse
+    \item Fault tolerance
+    \item Composability
+    \item Discoverability
+\end{enumerate}
+}{
+https://www.salesforce.com/blog/microservice-design-principles/
+}
+{
+
+Un sistema a microservizi, è un pattern architetturale il cui obiettivo è rendere un'applicativo di uqalisasi dimensione, resiliente, higly scalable, independentry deployable e capace di evolvere in fretta
+
+
+}{
+
+https://learn.microsoft.com/en-us/azure/architecture/guide/architecture-styles/microservices
+}
+
+
+{
+
+Universal scalability law
+}{
+
+http://www.perfdynamics.com/Manifesto/USLscalability.html
+https://wso2.com/blog/research/scalability-modeling-using-universal-scalability-law/
+}
+
+{
+Importance of Resilience in Microservices
+
+
+}{
+
+https://www.geeksforgeeks.org/system-design/resilient-microservices-design/
+}
+
+{
+
+maintenability
+}
+{
+https://medium.com/@shraddhazladhe/maintainability-in-microservices-architecture-principles-you-shouldnt-ignore-3837d655742b
+}
+{
+
+monolitichs architetture
+
+}{
+
+https://www.geeksforgeeks.org/system-design/monolithic-architecture-system-design/
+}
+
+{
+advantages and disanvantages of microservices
+}
+{
+https://www.geeksforgeeks.org/system-design/what-are-the-advantages-and-disadvantages-of-microservices-architecture/
+
+}
