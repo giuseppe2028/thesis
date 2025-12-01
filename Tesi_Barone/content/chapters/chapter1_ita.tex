@@ -1,12 +1,12 @@
 \chapter{Overview of Microservices Architecture}
 \label{sec:Overview of Microservices Architecture}
-In questo capitolo di apertura ci focalizzermo su una introduzione teorica dei sistemi a microservizi.
+In this opening chapter, we will focus on a theoretical introduction to microservice systems.
 
-Inizialmente introdurremo una panoramica dei sistemi a microservizi, perché nascono, e da che esigenze, per poi analizzarne approfonditamente le loro caratterische chiave, e come si configurano nel contesto del Software Engineering. Il capitolo terminerà con descrizioni di esempi reali dei sistemi a microservizi. 
+Firstly, we will begin with a general overview, focusing on why they were created and what needs they address, before analysing their key characteristics in depth and how they fit into the context of software engineering. The chapter will conclude with descriptions of real-world examples of microservice systems. 
 % use [] to set name for ToC
 \section[Introduction]{Introduction to Microservices Architecture} % ok with fontsize=12pt
 
-Prima di addentrarci nel pieno dell'architettura a microservzi, troviamo necessiamo approfondire i principi di questa architettura, e quale sono i fattori che hanno scaturito la loro nascita. 
+Prima di addentrarci nel pieno dell'architettura a microservzi, troviamo necessario approfondire i principi di questa architettura, e quale sono i fattori che hanno scaturito la loro nascita. 
 
 \subsection[Principles]{Definition and fundamental principles}
 Partiamo la nostra trattazione sui microservizi citando la definizione del "Building Microservices - Designing Fine-Grained Systems": \textit{"Microservices are small, autonomous services that work together."} I microservizi, infatti, sono degli approcci architetturali, che servono a scomporre grandi sistemi architetturali, in sistemi più piccoli, formati da componenti indipendenti che comunicano tra di loro, attraverso "ligth weigth protocols". Ogni sistema svolge una piccola business function, e sono totalmente indicpendenti, infatti, ogni microservizio può essere sviluppato in modo isolato, e deployato sepratamente dagli altri. Questo approccio permette ad un grande sistema informativo di non essere strettamente correlato ad uno specifico framewrk, o ad uno specifico linguaggio di progrmmazione, ma ogni ms, può usare un framework con le prestazioni migliori per svolgere la business function assegnata. Un vantaggio di avere questo sistema separato, è avere una dislocazione spaziale, in quanto i microservizi non necessariamente devono essere eseguiti all'interno di una macchina reale, e che nel caso un microservizi non funzioni, comunque l'applicazione continua a funzionare. 
@@ -174,6 +174,12 @@ I Developers di amazon hanno analizzato e scomposto il codice sorgente in micros
 Ad ogni team, inoltre fu assegnato di risolvere i colli di bottiglia dei sistemi. Ogni team succed in resolving it, grazie a fatto che la dimensione di ogni team era più piccola, come anche la dimenisone della code base su cui ogni team lavorava. Questo ha garantito una maggior attenzione ai dettagli per ogni microservizio. 
 Risultate di questo approccio è l'immagine dei microservizi operativi in amazon nel 2008.
 
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/chapter1/chapt1_1.1.4_2.png}
+    \caption{Real example of microservice archietetture in Amazon}
+    \label{fig:amazonfig2}
+\end{figure}
 
 \subsubsection{Use case: Uber} 
 Similmente con quanto visto in Amazon, anche uber, nonostante sia nata nel 2010, periodo in cui l'esperienza di amazon, dalla transazione da un applicazione monolitica ad una a microservizi doveva essere da esempio, nacque come sistema monolitico. 
@@ -185,7 +191,7 @@ I Passengers and drivers connected to Uber’s monolith through a REST API. All'
     \centering
     \includegraphics[width=0.5\textwidth]{images/chapter1/chap1_1.1.4_1.jpg}
     \caption{Monolithic architetture of uber}
-    \label{fig:my_figure}
+    \label{fig:uberfig2}
 \end{figure}
 
 Per affrontare queste difficoltà uber decise di scomporre la propria architettura da monolite a micrservizi. 
@@ -208,7 +214,7 @@ Una volta termianato ciò, applicano metriche quantitative, e logiche di busines
     \hfill
     \subfloat[Real design of microservices in Uber]{%
         \includegraphics[width=0.45\textwidth]{images/chapter1/chap1_1.1.4_4.jpg}
-        \label{fig:sub2}
+        \label{fig:uberfig2}
     }
 
     \caption{rappresentation of microservice in Uber}
@@ -293,12 +299,171 @@ Ovviamente anche un sistema monolitico presenta dei problemi. Le challenge che s
 In conclusione non esiste un sistema migliore di un altro, ma analizzando le storie delle grandi aziende che hanno fatto la storia dell'informatica, ed analizzando i vantaggio e gli svantaggi di tale approccio, è facile concludere che un approccio monolitico può essere utile, e fondamentale nel caso in cui un sistema deve essere strutturato per una piccola azienda, che non ha un team di sviluppo molto complesso, e la cui infrastruttura informatica non si deve interfacciare con un numero sempre crescente di casi d'uso o di utenti che utilizzano il software. Fornire in questo caso un applicativo a microservizi per questa azienda potrebbe diventare altamente inefficiente e inutilmente complesso. Se, al contrario, si prevede che un sistema debba crescere in breve tempo, è sempre meglio pensare già ad un approccio a microservizi, in modo tale da non dover riscrivere l'architettura come è stato già fatto come grandi aziende come amazon, uber. 
 
 \section{Microservices Architecture in Real-World Context}
-In questa sezione ci concetremeno su un aspetto più tecnico dell'architettura a microservizi. Analizzando gli algorimtni e i design patter utilizzati nel mondo reale, per infine entreare nel dettaglio di come i microservizi vivono all'interno di macchine distribuite in tutto il mondo.
+In questa sezione ci concetremeno su un aspetto più tecnico dell'architettura a microservizi. Analizzando gli algorimtni e i design patter utilizzati nel mondo reale, per infine entreare nel dettaglio di come i microservizi vivono all'interno di macchine distribuite in tutto il mondo. Si è preferito inoltre, distribuire la trattazione dei design patterns nelle sezioni successive, fornendo così la tematica trattata e il design pattern utilizzato per risolvere tale tematica. 
+
 \subsection{Architectural patterns and integration mechanisms in microservices}
+In letteratura esistono un moltidudine di design patterns che sono nati durante la storia dell'informatica. L'obiettivo di questa sezione sarà analizzarne alcuni, e porre l'attenzione su i più utilizzati e più importanti in un contesto reale.
+\newcounter{designpatternArchitectural}
+\renewcommand{\thedesignpatternArchitectural}{\Roman{designpatternArchitectural}}
+
+\setcounter{designpatternArchitectural}{0}
+
+\stepcounter{designpatternArchitectural}
+\paragraph{\thedesignpatternArchitectural. API Gateway Pattern}
+Il primo design pattern su cui ci concentriamo è l'API gateway pattern. Tale pattern architetturale, fornisce ai sistemi esterni un solo punto di ingresso ai microservizi, che è l'API-gateway. L'utilizzo di un API gateway, riduce intando il risco di esporre all'esterno i microservizi, garantendo quindi standard di sicurezza per ogni microservizi, ed inoltre riduce il roundtrip tra cliend e servzi , proprio perché lo scopo è quello di raccogliere le risposte tra più servizi. Questo ovviamente aumenta notevolmente le prestazioni del sistema. Inoltre tale sistema garantisce una separation of concerns, ovvero l'api gateway sarà l'unico responsabile di implementare problematiche trasversali come registrazione, autenticazione; evitando quindi ridondanza e promuovendo coerenza tra tutti i microservizi. 
+
+Un api gateway può essere implementato direttamente da zero, oppure è possibile implementare soluzioni terze di terze parti, quali Amazon API Gateway, Kong e la API Management di Azure. L'utilizzo di strumenti terzi ha sicuramnte dei vantaiggi, come scsalabbilità elevata, supporto non trascurabile e continui aggiornamenti, affidabilità, nonché servizi complessi da implementare inizialmente come servizi di memorizzazione di cache e monitoraggio.  
+AGGIUNGERE FIGURA
+\stepcounter{designpatternArchitectural}
+\paragraph{\thedesignpatternArchitectural. Database per Service Pattern}
+Il design pattern "Database per service" assicura che ogni microservizio contiene un proprio database. Questo approccio decentrallizzato consente di avere una data encapsulation, autonomia e scalabilità, permenteendo ad ogni microservizio di crescere senza impattare gli altri. L'utilizzo di un database per servizio implementa tutte le proprietà dei microservizi. Essi assicurano che i dati siano correttamente incapsulati, esponendo solamente i dati attraverso API. Questo garansce sicurezza ed integrità, evitando quindi accessi esterni al database. Un approccio di tipo Database per sevice garantisce una fi
+SISTEMARE METTENDO QUESTO
+https://www.geeksforgeeks.org/system-design/database-per-service-pattern-for-microservices/
+AGGIUNGERE FIGURA
+\stepcounter{designpatternArchitectural}
+\paragraph{\thedesignpatternArchitectural. Service Discovery Pattern}
+Il Sevice discovery pattern, è un approccio architetturale il cui scopo è tener traccia di un numero sempre crescente di microservizi, evitando il caso in cui tutti i microservizi conoscono tutti gli altri. Osservando le figure \ref{fig:amazonfig2} e \ref{fig:uberfig2} precedentemente mostrate, è possibile notare come in un contesto reale tenere traccia di tutti i micrsoervizi è un impresa ardua, noncè anche molto laboriosa. A tal motivo il pattern service discovery aiuta la semplificazione di questo aspetto. Lo scopo è rendere 
+\stepcounter{designpatternArchitectural}
+\paragraph{\thedesignpatternArchitectural. Circuit Breaker}
+Il pattern architetturale di Circuit Breaker è molto utilizzato nell'ambente a microservizi. Questo design pattern mira a non causare failer a cascata all'interno di un abiamente. Nel momento in cui alcuni microservizi dipendono dalla risposta di altri, il fallimento di quest'ultimi potrebbe portare al fallimando anche di essi. Questo causerebbe una serie di errori, il quale è possibile evitare direttamente inserenedo un meccanismo di isolamento dei microservizi. 
+Il pattern Cricuit breaker, solitamente opera in tre stati fondamentali: Closed, Open, e Half-Open. Each state represents a different phase in the management of interactions between services.
+\begin{itemize}
+    %todo sistemare
+    \item In the Closed state, the circuit breaker operates normally, allowing requests to flow through between services. During this phase, the circuit breaker monitors the health of the downstream service by collecting and analyzing metrics such as response times, error rates, or timeouts.
+    \item When the monitored metrics breach predetermined thresholds, signaling potential issues with the downstream service, the circuit breaker transitions to the Open state. In the Open state, the circuit breaker immediately stops forwarding requests to the failing service, effectively isolating it. This helps prevent cascading failures and maintains system stability by ensuring that clients receive timely feedback, even when services encounter issues.
+    \item  After a specified timeout period in the Open state, transitions to Half-Open state.
+Allows a limited number of trial requests to pass through to the downstream service.
+Monitors responses to determine service recovery.
+If trial requests succeed, indicating service recovery, transitions back to Closed state.
+If trial requests fail, service issues persist.
+May transition back to Open state or remain in Half-Open state for further evaluation
+\end{itemize}
+\stepcounter{designpatternArchitectural}
+\paragraph{\thedesignpatternArchitectural. Backends for Frontends Pattern (BFF)}
+The Backend for Frontend (BFF) Pattern addresses the challenge of serving diverse client applications by creating a dedicated backend for each type of client—such as web, mobile, or IoT.
+L'approccio utilizzato è un approccio simile all'API-Gateway, ma diversamente da esso, il BFF pattern, invece di avere un singolo punto di ingresso, tale pattenr ne configura $N$; Nella quale ogni singolo punto di ingresso rappresenta un punto di ingresso per diveri client (mobile, web, desktop, voice assistant, etc.).
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/chapter1/chap1_1.3.1_1.jpg}
+    \caption{Difference between general-purpose API and BFF}
+    \label{fig:differenceGPAPIBFF}
+\end{figure}
+Utilizzare un approccio BFF, sicuramente fornisce ad un team di front-end la possibilità di potenziare i tempi di sviluppo all'interno del mercarto, fornendo al tem di frontend un backend dedicato per poter accompiere alle proprie necessità. E il frontend così non potrà affect gli altri, proprio per un backeend. 
 \subsection{Orchestration and containerization with Docker and Kubernetes}
+Non introdurre la trattazione sui sistemi a microservizi nel mondo reale, senza prima fornire una panoramica chiara su come essi vengono gestiti. 
+Prima di introdurre i concetti di \textbf{\textit{conitainernizzazine}}  e \textit{\textbf{orchestrazione}}. 
+Il termine containers, nel panorama informatico, sono virtual boxes, ovvero dei contenitori che incapsulano intere applicazioni e le loro dipendenze per distribuirle ad un pubblico più ampio. 
+In un termine più formale, le conitainernizzazine is the process of packing application togherts and  running them in an isolated environment with the necessary libraries and network processes for the application on the same operating system. Questo garantisce una indipendenza tra il sistema operativo e l'applicazione in questo container. Tale aproccio mira infatti a risolvere l'enorme problema delle dipendenze, tra le macchine sulla quale giravano le applicazioni, il che rendeva la condivisione e l'installazione di alcune applicazioni un compto veramente arduo.
 
-%\section{Data Consistency and Communication between Microservices}
+%TODO da vedere se lasciare sottosezione
+\subsubsection{Difference between containers and virtual machine}
+Inizialmente si potrebbe pensare che un containers si la stessa cosa di una virtual machine ma per le applicazioni software, ma qeusto pensiero è totalmente errato. Prima di tutto perchè una \gls{VM} crea un sistema operativo proprio, con un'emulazione di tutto il sistema hardware di cui ha bisogno per girare. Un'applicazione continerizzata utilizza direttamente le risorse del sistema operativo. Questo garantisce ocme diretta conseguenza che un sistema conteineizzato, garantisce solamente le risorse di cui il container ha bisogno, diversamente dalla VM, che ha un consumo di risorse molto differenza a causa della mole di librerie e funzioni che importa, molte volte inuzilizzate. Questo rende un'applicazione conterenizzata maggiormente più leggera, sia in termini di risorse che in termini di consumo di memoria fisica.
 
-%\subsection{Consistency challenges in distributed systems}
-%\subsection{Communication methods: synchronous and asynchronous}
-%\subsection{Design considerations on consistency, reliability, and scalability}
+\subsection{Momentanea}
+Container orchestration is the automated process of deploying, managing, scaling, and networking containers in production. It’s how you move from running a single container on your laptop to managing thousands of them across different environments, which docker has huge limitations. In the moment where a system has hundres or thousend of containers, it's need to concern how to manage and scale, in order to maximase the performances and the reliability of the entire system. 
+%How do you scale containers up or down based on demand?
+%How do you recover from failures automatically?
+%How do you route traffic to the right containers?
+%How do you update workloads without downtime?
+%tradurre queste domande in forma testuale. 
+Nel momento in cui vi è solamente un singolo container che viene eseguito su una macchina 
+L'ambiente più diffuso per l'orchestrazione, nonché quello che utilizzeremo durante il corso della trattazione è \textbf{kubernetes}. 
+
+After giving an explanation of what is orchestration, let's move towards, why every team, in a microservice enviroment, or in a big service in general, mast adopt this technology. 
+first care of orchestration environemnt is automation, this lead the programmer to not confgure with manual task all the system, that could be messy and difficult also when an huge amount of system were built. so that Container orchestration handles these workflows automatically; it’s your control plane that watches everything and responds fast.
+Another advantage of implementing an orchestration ssystem is High availability and failover built-in. 
+Implementing a system orchestration, garantees, a system of high availabilty, so that, when a container fails, orcheshretion, don't ask permission and restart automatically, the conterner, redirects the traffic to another containers, so that the user cannot see the service interuption. It’s a built-in failover that keeps your services alive, even when things break behind the scenes. 
+Another feature is better resouce utilizzation, this means thaat, thank to a components named, load balancer, an orchestrator ensures that every node has the same workload, and when a node is not used anymore, it can be deleted, in prder to save resources. 
+\subsubsection{Docker: basic concepts}
+In this section, we will provide basic concepts about docker, in order to understand future discussion about deployment of a microservice service. 
+Docker introduces an execution model based on images and containers, which are the main abstraction of the system. Now we are going t explain the basic concetps: 
+\begin{itemize}
+    \item A docker image are immutable templates that are build starting from a docker file, which is a text documets containing all the directives that a system must compile in order to assemle the image. In the nextchapter we will discuss of images used for compiling microservices. 
+    \item A docker continaer, inserad in the istance of a docker image, it is an effimeral system, running on the host machine. 
+    \item A docker registry is a memory place, often stored in cloud, where is possible to store images, so as to keep them versioned. 
+    \item docker compose is a tool for running and defining multiple-continaer in a docker environment. It is an high level orchestration tool, that makes easy too coordinare and managing multiple containers in a single application. Especially in development and testing environments. 
+\end{itemize}
+\subsubsection{Kubernetes: basic concepts}
+In this section we are going to explain basic concepts of Kubernetes. Before moving inside the orchestration's world, we give a brief of core components of kubernetes. 
+
+\section{Data Consistency and Communication between Microservices}
+Data consistency and communication between microservices is one of the most difficult challenge to faced up. In this chapter we will provide basic concepts about this topics, focusing on solutions and algorithms that try to impkements this features. Ater that, we will disscuss about designing considerations about  consistency, reliability, and scalability, which are the core aspect of the microservice architetture. 
+
+\subsection{Consistency challenges in distributed systems}
+One of the biggest challenge when dealing with microservice in ensuring data consistency in the whole system. This is caused by the distributed ature of the system, which, as we has explained few sections ago, it relies on multiple database running in multiple systems placed in all over the world. Unlike monoithic architetture were the system comunicates with a single o multiple istance of a database, but it is the author of the data chaging of database, every single operation made in it is considered ACID (\textit{Atomic},\textit{Consistent}, \textit{Isoleted}, \textit{Durable}).
+
+Now, for a better explanation of the concept, we ensure to give a clear exampple of a problem of consistency that ususaly could happen in a microservice enviroment. The element of our example is a ecommerce application, where if a customer buy and element of this shop, the system must deduct stock from inventory, process the payment and confirm the order. If each step is made in different microservices, and the payment fails, we must ensures that the proodut has not already dducted from the store, and the order does not succeded. So this enrise the \textbf{consistency problem}, that ensures that all services reflect the same final state, and in case of error on each step, the sistem must leave the broken state roll back gracefully. 
+
+Another example is the fact that in a distributed system most of datas are replicated in more than one replicas of microservices , this, in order to have better performances of the system, avoiding the user to contact directly the longest system, but has a replicas near by the request that is issued. 
+In the licterature there are various types of concustency, now we will cover type of concistency like: 
+\begin{itemize}
+    \item Eventual Consistency: In some applciations, the consistency is not the core of infrastrucutre, so tht, weaker consistencies guarantess are acceptable. This mobel is applicable to systems were data stores are seldom writtend by few process, but there is a big mound of reads request. This model has a slow propagation of updates, and all the replicas of a distributed system will become identical if no updates take place for a long time although the duration is not strictly specified. 
+    \item Strong Consistency: Is used in data centic enviroment, where the consistency is the main core of the application. This model ensure the maxium consistency in all microservice, by blocking all the operation on datas, until all replicas will not has the same amound of data. This system, even if is the most secured model, is really slow. 
+    \item Continuous Consistency: Continuos consistency could be measured as the deviation tolerated from strong consistency. This means that the consistency is garantees up to a threshold, by wich it cannot be overcome. 
+    \item Sequential Consistency: This model, designed by Laport,enrsuers that all the nodes in a distributed environments, executes the same order of operations, as there is a global sheduling of operations. It usually is used in environments, were exchanging the order of instrucition could lead to furhter concistency problems. 
+    \item Causal Consistency: Model that is, less restrictive than sequential Consistency, ensures that the order of operations reflects their causal relationships. it means that if one event influences another, all nodes in the system will agree on the order in which these events occurred.
+    \item Entry Consistency:This model ensures that shared data is made consistent only when a synchronization operation occurs, such as acquiring or releasing a lock. Each shared variable (or “entry”) is associated with a synchronization object (like a lock or semaphore). It is useually referrend to critical section of a \gls{DS}. Consistency properties in entry consistency are expressed in terms of
+read, write, lock, and unlock operations. Acquiring a lock can only succeed when all writes to the
+59
+associated shared data have been completed, exclusive access to a lock can only succeed if no other
+process has exclusive or nonexclusive access to that lock, and nonexclusive access to a lock is allowed
+only if any previous exclusive access has been completed.
+\subsubsection{Approaches to Achieve Consistency}
+After dealing with explaining the differnt onsisstency, it's necessary to indrouced the different aproaches to achive data consistency inside a distributed system. 
+Now we are going to explain four different approching to achive data consistency in a microservice environment. 
+\begin{itemize}
+\item \textbf{Distributed Transactions (2PC)}: a distributed transaction is a transcation that try to be consisten in all microservicie, as it is made in a single microservice. Epecially it uses the two-phase commut protocol to ensure either all services commit or all rollback. But this protocol ensures a strong consistency in change of designing a comple and not scalable distributed system. This is used in financial application environment.
+    \item \textbf{Saga Pattern}: this pattern aims to break a transaction into smaller steps. Each service performs its action and publishes an event. If one step fails, compensating actions are triggered to undo previous steps. Sagas can be implemented using two alternative approaches, that are Choreography were distributes the decision making and sequencing among the saga participants that communicate by exchanging events; or by Orchestration that means, one service is responsible to act as a coordinator, sending commands to saga
+participants and collecting their responses
+communicate by exchanging events
+    \item \textbf{Event-Driven Consistency}: this model is applied in environments where there is a need to update stases, which are dependent to other states. So a service typically publish a doman events, usually in a queue, that is a communication method, wich we will go deeper in the next section, ad all other service, which have been already registered, update their state accordingly. 
+    \item \textbf{CQRS (Command Query Responsibility Segregation)}: Separate write and read models. Commands change state, and queries read from a different store. Sync is achieved via events. This model scales well, but ensure and eventual consisteny, that is not good for reliable systems. 
+    \item \textbf{Idempotency and Retry Mechanisms}:  Ensure that repeated operations produce the same result. For example if a payment fails, and the user made the payment twice the amount of the payament will not been duplicated. 
+\end{itemize}
+\end{itemize}
+%mettere immagine del saga pattern. 
+
+\subsection{Communication methods: synchronous and asynchronous}
+Differently by monolithic architettures, where are process called another throught a process; in microservice applications the communication between serives, is a big challenge that must be considered during designed phase. Due to the distributed nature of the system, each microservice has his own process, and deployed indipendenty from others, this makes the communication of each microservice really challenging. 
+For this reason, there ins't a method call anymore, but new protocols araising, these are \textbf{communication protocols}. The communication protocols, could be divided in three macrosections, that are: 
+\begin{itemize}
+    \item \textbf{Syncronous}: consist on real time request and response process.
+    \item \textbf{Asynchronous}: Services communicate without waiting for an immediate response.
+    \item \textbf{Hybrid}:Combination of synchronous and asynchronous methods. Used when certain operations require real-time responses, while others can be event-driven.
+\end{itemize}
+\subsubsection{Synchronous}
+Now we give a look about what procols are used in synchrous microservice communication. The asynchron communcation, is based on two essential protocols: HTTP or GRPC, fo returning sync response. In this communication the client sends a request and it will not ends until it receives a response from the service. So that means client code block their thread, until the response reach from the server. The client could go in timeout, if no response is provideed. The HTTP protocl, and the secured HTTPS once, are the most used in microservices environment. It consist on exposiing apis, and throud this network proocl, throw calls like GET,POST,PUT,DELETE, , the client could request and modify resources. Another protocol is the RPC protocol. The RPS, that stands for \textit{Remote Procedure Calls}, is a protocol, which core "allows a computer program to
+execute a procedure or function in a different address space, typically on a remote computer or server,
+as if it were a local procedure call". This is useful, when we wnat to start a procedure, or want to execute complex calculation, triggering a remote procue n server, Even if, in some use cases, RPC performs better than REST, it is not so used anymire. 
+
+
+\subsubsection{Asynchronous}
+In Asynchronous communication, the client sends a request but it doesn’t wait for a response from the service. So the key point here is that, the client should not have blocked a thread while waiting for a response.
+
+The most popular protocol used in this method are: \textbf{AMPQ (Advanced Message Queuing Protocol)}. This method of communication, espsecially used in event-driven design pattern, aims to communicate with queue, important means of trasport used in this method. So with using AMQP protocols, the client sends the message with using message broker systems like Kafka and RabbitMQ queue. The message producer usually does not wait for a response. This message consume from the subscriber systems in async way, and no one waiting for response suddenly.
+
+An asyncroouns communication, also is divided in two implementations, one-to-one mode, also called queue, and one-to-many, also called topics. 
+In both two implementations, the pattern used by all is the publish and subscrive meccanish. Basically, it is used infrastructures like event-bus o message broker, who amin to publish events between multiple microservice, and communication provide with subscribing these events in an async way. 
+
+%mettere immagine slide 10 wa16
+
+
+The best tools used in most of implememtnations of microservices, are kafka and RabbitMQ. In implementations like mesage broker, prevede a broker, usauly kafka or rabbit mq, with queues, where who publish the event, the so called publoshr, could wemit the event in the queue, and could be conumed asynchroiunslly by a consumer. Usualy a produers, publish an event into a queueu or in a topic, taht could be for examoke order-emitter, ecc; where there could be one or more consumers,taht consuemes this mesage. 
+
+After explainiing asynchonous method, let's give a look the most famous impmentations like RabbitMQ and Kafka.
+
+RabbitMQ is a popular open-source message broker based on the Advanced Message Queuing Protocol (AMQP), but it can support proptocls like websockert and MQTT.In rabbitMQ, there are several exchanges, that are supported
+
+\begin{itemize}
+    \item Direct exchange: it forwards messages to the queues whose binding keys exactly matches the routing key of the message
+    \item Fanout exchange - it broadcasts the message to all the matching queues
+\item Topic exchange - this exchange is connected to a set of queues via binding keys that must be a list of dot-delimited words: two special wild-chars are allowed ('*' and '#'), matching, respectively, a single
+word or a sequence of zero or more words
+\item Headers exchange - it bases its routing decisions on message headers rather than routing key
+\end{itemize}
+
+%Aggiungere immagine Rabbit MQ
+
+Apache Kafka, on the other and, is an event straming platofrms based on a cluster of servers. the particolarity of this tool, is the high scaalability adn fault tolerant. It consist on a message storage, so the messages arrives and sotred and indexed indicationg the positiion of the log. It is fault tolertant, beacuse data is replicatied throus hte numbers of kafka servers, and salable, Kafka clusters can be elastically scaled by simply adding more servers. Topics is the core of kafka, each topic can be divided in partiions, and when a message arrived it is stord in a single partition. Partitioning allows Kafka to scale and parallelize the data processing by distributing the load among multiple consumers. Each message is uniquely identified by its offset (a long) in the topic log; it have a key, valued and a timestamp, and Messages with the same key are stored in the same partition, keeping their arrival order
+
+%mettere immagine wa16 slide 28

@@ -63,3 +63,13 @@ advantages and disanvantages of microservices
 https://www.geeksforgeeks.org/system-design/what-are-the-advantages-and-disadvantages-of-microservices-architecture/
 
 }
+{
+
+microservice pattern
+}{
+
+https://medium.com/finanza-tech/microservices-patterns-25da7fb85bd9
+https://www.geeksforgeeks.org/system-design/backend-for-frontend-pattern/
+https://www.geeksforgeeks.org/system-design/what-is-circuit-breaker-pattern-in-microservices/
+https://medium.com/mobilepeople/backend-for-frontend-pattern-why-you-need-to-know-it-46f94ce420b0
+}
