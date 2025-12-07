@@ -1,0 +1,571 @@
+\chapter{Overview of Microservices Architecture}
+\label{sec:Overview of Microservices Architecture}
+In this opening chapter, we will focus on a theoretical introduction to microservice systems.
+
+Firstly, we will begin with a general overview, focusing on why they emerged and what needs they address. Subsequently we will proceed analysing their key characteristics in depth and how they fit into the context of software engineering, concluding with descriptions of real-world examples of microservice systems. 
+% use [] to set name for ToC
+\section[Introduction]{Introduction to Microservices Architecture} % ok with fontsize=12pt
+Before diving into microservices architecture, we need to explore the principles behind this architecture and the factors that led to its creation. 
+
+\subsection[Principles]{Definition and fundamental principles}
+The discussion of microservices begins by referring to the definition provided by Newman~\cite{newman2015microservices}: \textit{‘Microservices are small, autonomous services that work together’}.  Each microservice implements a specific business function and is completely autonomous, yet collaborates with others for achieving a common goal.
+
+Microservices represent an architectural approach designed to break down large monolithic systems into smaller, independent components that communicate with each other through lightweight protocols. Each microservice is a small component, which can be developed, tested and distributed in isolation from others. This paradigm prevents the entire information system from being strictly dependent on a specific framework or programming language. Each microservice can adopt the technology best suited to its functional and performance requirements in order to perform its assigned business function. Further advantages derive from the distributed nature of microservices: Firstly, the possibility of spatial displacement, as microservices do not necessarily have to be executed within a single physical machine but can be distributed across multiple virtual environmentss; Secondly, greater resilience, since the malfunctioning of one service does not compromise the entire application.
+Regarding the size of each microservice, there is no fixed standard, nor can one simply rely on lines of code. Typically, a microservice should be small enough to be rewritten in about two weeks, “\textit{The code base is small. The service can be rewritten and redeployed in 2 weeks”}. 
+Based on these characteristics, here are the six fundamental principles of microservice design, which we will discuss in more detail below:~\cite{The360Blog}
+\newcounter{principio}
+\renewcommand{\theprincipio}{\Roman{principio}}
+
+\setcounter{principio}{0}
+
+\paragraph{\theprincipio. Autonomy} 
+\stepcounter{principio}
+Each microservice is independent and can be developed and deployed separately from the others without affecting the overall system. This means that each service has its own runtime and data schema. This separation ensures greater performance reliability and overall better service quality.
+
+\paragraph{\theprincipio. Loose coupling} 
+\stepcounter{principio}
+Dependencies between microservices are minimised using the principle of \textit{‘loose coupling’}, which allows systems to be decoupled by standardizing on contracts as expressed through business-oriented \gls{API}\cite{The360Blog}. This means that a change within one service does not affect the proper functioning of the other microservices. By communicating through stable APIs, consumers are protected: the internal implementation of a service can change without impacting the external systems that rely on it.
+
+Furthermore, this technical independence translates into greater efficiency and agility in the architecture, which helps to reduce coordination costs and achieve faster results.
+
+\paragraph{\theprincipio. Reuse} 
+\stepcounter{principio}
+Reuse continues to be one of the cornerstones of microservice architecture. While it is widely used in the construction of large-scale information systems and not exclusive to microservices, it proves equally valuable in this domain.
+In fact, if multiple microservices share common business logic, it is preferable to externalise that call and move it to a dedicated microservice. 
+\paragraph{\theprincipio. Fault tolerance} 
+\stepcounter{principio}
+As mentioned by Algirdas Avizienis, \textit{"Fault tolerance means to avoid service failures in the presence of faults."} \cite{avizienis2004basic}.
+In a microservices context, this means that if one component fails, the system must be able to continue functioning with a degradation of performances, rather than collapsing entirely.  Fault tolerance is therefore the ability of a service to operate even in the presence of malfunctions, minimising the impact on the SLA\footnote{Service Level Agreement: an agreement that defines service quality and availability metrics.}.
+In microservice systems, communication with the malfunctioning microservice is interrupted by specific protection mechanisms, such as the so-called \textit{circuit breaker}. This concept, inspired by electronics, allows the failures of individual components to be isolated, preventing them from spreading and compromising the entire system.
+
+\paragraph{\theprincipio. Composability} 
+\stepcounter{principio}
+Composability is the principle according to which a system can be easily composed, which meas a single service can be viewed as an autonomous entity, both as part of a set of microservices and, when combined, can generate new services aggregate with additional functionality. This approach helps to keep the overall architecture less complex and more modular.
+
+\paragraph{\theprincipio. Discoverability} 
+\stepcounter{principio}
+All \gls{API}s exposed by a microservice must be clearly documented and made easly accessible to other teams or microservices.
+Proper documentation allows consumers to understand the microservice's business and the interfaces it provides. Effective communication of \gls{API}s ensures that developers can easily integrate them into the microservices they develop, avoiding the duplication of existing functionality.
+
+\newpage
+\subsection{Modularity and service independence}
+According to Microsoft's architectural guide, building a microservices application means adopting a design style aimed at breaking down a complex problem into smaller, autonomous services~\cite{MicrosoftMicroservices2023}. 
+To achieve this, each microservice must strictly follow the principle of \textit{separation of concerns}, performing only the specific task assigned to it and interacting with other microservices to achieve broader objectives.
+
+For example, a microservices architecture should be divided into autonomous components, as illustrated in Figure \ref{fig:scompMicroserv}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{images/chapter1/chap1_1.1.2_1.png}
+    \caption{Example of a microservice architecture}
+    \label{fig:scompMicroserv}
+\end{figure}
+
+As shown in Figure: \ref{fig:scompMicroserv}, each microservice handles a specific part of the application, performing particular assigned tasks and writing to a database to which only it has access. This approach decentralises breakpoints, making it easier to identify any problems when part of the application is not working correctly.
+
+Furthermore, this structure guarantees the independence of microservices: each service can operate autonomously, even in the absence of others, without knowing or depending on their existence. This independence allows, as discussed in the previous paragraph, the development of microservices with completely different technologies.
+This is called 
+Polyglot Architecture, which allows engineers to use the best possible technology for different features in development\cite{PolyglotMedium}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{images/chapter1/chap1_1.1.2_2.png}
+    \caption{Example of Polyglot Architecture in a Microservice Architetture \cite{newman2015microservices}}
+    \label{fig:my_figureMicroservice}
+\end{figure}
+
+
+\subsection{Scalability, resilience, and maintainability}
+Scalability is a fundamental factor in the design of a microservices system. A system is defined as \textbf{scalable} if it is able to handle an increasing number of requests and workload without degrading its performance or becoming unstable.
+
+There are two types of system scalability: 
+
+\begin{itemize}
+    \item \textbf{Scaling up}: The ability of a system to cope with an growing workloads and requests by expanding computational capabilities, such as storage, communication elements, CPU, RAM, and other hardware components. Obviously, the scaling up approach is limiting, due to the limitations of currently available resources.
+    \item \textbf{Scaling out}: The ability of a system to cope the increasing workload simply by changing the way an architectural system is defined, for example adding the number of machines deployed in a system. This approach is particularly used in the real world, where distributed systems are made up of multiple machines with limited computational capacity, which together guarantee the ability to handle a greater workload by working in parallel.
+\end{itemize}
+
+Having defined these approaches, we will focus on the scaling out method, which has the greatest impact in the real world of distributed systems, defining several techniques that can be used to implement scaling out, such as:
+
+\begin{itemize}
+    \item \textbf{Partitioning and Work Distribution}: this consists of dividing a task into smaller subtasks and distributing them across different nodes of the system in order to balance the workload. In this way, if requests increase, it is possible to add more processes on more machines to handle them effectively.
+    
+    \item \textbf{Replication}: this involves the ability to create copies of processes or services, distributing the workload or data among these replicas to improve performance. For example, it is possible to have multiple replicas of the same microservice distributed across different nodes, thus increasing the access speed and availability of the service. Web server clustering\footnote{A server cluster is a collective group of servers distributed and managed under a single IP address.\cite{Whatisserverclustering}} is a classic example of how multiple servers can distribute the load and increase availability.
+    
+    \item \textbf{Communication Latency Hiding / Limitation}: this technique aims to reduce communication latency between services. Asynchronous communication is often preferred over synchronous communication in order to minimise response times and improve overall system efficiency.
+\end{itemize}
+
+
+\subsubsection{Universal Scalability Law}
+To understand the limits of system growth, it is essential to provide an introduction on how the system reacts to increased scalability. for this we will discuss about the \textbf{universal scalability law} (USL). This law, proposed by Australian computer systems researcher Dr. Neil Gunther, studies the performance behaviour of a computer system as the number of nodes or resources increases. According to the USL, there is a maximum scalable capacity threshold beyond which increasing the number of nodes does not result in a linear increase in performance.
+For example, suppose we have a server that handles 2,000 transactions per second per node. By increasing the number of nodes to two, we would expect a throughput of 4,000 transactions per second. In reality, this is not entirely true, as their final throughput is slightly less than 4,000 transactions per second. This discrepancy becomes more evident as the number of nodes increases, until a threshold is reached beyond which the system not only stops scaling, but may even show a \textit{retrograde speedup}, i.e. a decrease in performance despite the addition of resources.
+
+The behaviour described by the USL is illustrated in Figure:\ref{fig:USLGraph}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{images/chapter1/chap1_1.1.3_1.png}
+    \caption{Graph that shows the trend of a scalable up sytem\cite{USLWSO2}}
+    \label{fig:USLGraph}
+\end{figure}
+
+
+
+For this reason, the universal scalability law has been proposed, according to which the throughput of a system can be approximated by the following equation (derived from queueing theory)\cite{USLPerfDynamics}:
+\begin{equation}
+    X(N) = \frac{N\cdot\gamma}{(1+\alpha\cdot(N-1)+\beta\cdot N\cdot (N-1))}
+\end{equation}
+where:
+\begin{itemize}
+    \item $N$ is the number of concurrent units;
+    \item $\gamma$ represents the normalised throughput of the system with a single unit;
+    \item $\alpha$ indicates \textit{resource contention}, that is the cost of contention for shared resources 
+          (e.g. databases, locks, queues or centralised components);
+    \item $\beta$ represents the \textit{coherency cost}, that is the cost of synchronisation and communication 
+          between system units (e.g. message exchange, state replication or coordination between microservices).
+\end{itemize}
+\subsubsection{Resilience}
+\textit{Resilience},in a system, is the ability of a system to recover from a state of continuous failure. Especially in a microservices system, resilience is crucial, as it represents how stable and operational a system is. This is particularly true in a system where numerous services have been developed and the possibility of failure is inevitable due to causes such as network, hardware and software issues.
+We will now explain the fundamental pillars of resilience in a microservices architecture:
+\begin{itemize}
+    \item \textbf{Fault Isolation}: A microservices architecture guarantees resilience in the event of a single service failure, as there are many separate services and the failure of a single service does not bring down the entire system.
+    \item \textbf{Continuous Availability}: As a direct consequence of the previous point, the fact that the system is made up of smaller services, and that it is possible to replicate these services in different parts of the globe, means that a fairly high level of availability can be maintained even when several services are unavailable. 
+     \item \textbf{Scalability and Elasticity}: Resilience is closely related to the scalability of a system, because if the capacity of a system increases, it reduces the number of failures it encounters. In addition, if a system can scale autonomously, i.e. add or remove nodes, resilience will be better guaranteed than in a completely static system that cannot be scaled. 
+    \item \textbf{Improved User Experience}: The resilience of a system can lead to an improvement in the overall user experience, precisely because resilience ensures that, even in the event of a failure, by implementing the \textit{graceful degradation} technique, an application provides the necessary functionality to users without compromising the overall user experience.
+    \item \textbf{Quick Recovery}: Resiliet system can recover from failures automatically or with less manual intervention than a monolithic application. This reduces downtime and all impacts on service     
+    \item \textbf{Fault Tolerance}: Resilient systems provide important mechanisms to increase fault tolerance, such as \textbf{circuit breakers} (isolating a system), \textbf{timeouts}, and \textbf{retries} to handle all errors and degrade performance without causing service disruptions.
+    \item \textbf{Decentralised Communication}: A resilient system is most often based on a system that uses a decentralised approach as a means of communication, such as asynchronous messaging or event-driven architectures. This ensures that in the event of communication problems, the system continues to function.
+      \item \textbf{Continuous Testing and Deployment}: A resilient system must undergo rigorous testing and continuous deployment practices. Automated testing, canary deployments, and blue-green deployments help ensure that changes are rolled out safely and do not introduce vulnerabilities or instabilities.
+\end{itemize}
+
+\subsubsection{Challenges in Achieving Resilience}
+Obviously, a microservices system that is as resilient as possible brings with it challenges that must be overcome. These include: 
+
+\begin{itemize}
+    \item \textbf{Distributed Complexity}:
+    In a microservice application, although slipping the system in microservice is a milestone, it could introduce  complexity in monitoring, debugging, and tracing across the entire system. Understanding how each service interacts and ensuring fault isolation becomes challenging.\cite{ResilientMicroserviceDesign}
+    \item \textbf{Inter-service Communication}: Microservices deeply rely on communication between services, often over networks. This introduces network failures, latency, and potential communication bottlenecks, requiring robust communication protocols and error-handling mechanisms.
+    \item \textbf{Data Consistency and Integrity}: One of the most challenging aspects in a microservice architecture is maintaining data consistency across each service, especially within distributed transactions.
+    The most time-consuming feature to desing and maintain is ensuring data integrity and synchronization without introducing performance bottlenecks or single points of failure.
+    \item \textbf{Resilience Testing}: Testing the resilience of microservices systems is complex and often requires specialized tools and techniques. It demands various failure scenarios, like network partitions, service outages, or latency spikes. It could be a game changer for guaranteeing system stability.
+    \item \textbf{Dependency Management}: In big information systems, in which there are massive numbers of business functions, Microservices, oftner are streactly interconnected, making them dependent on external services and APIs. Managing dependencies and handling versioning, backward compatibility, and service discovery become critical to maintaining system resilience\cite{ResilientMicroserviceDesign}.
+    \item \textbf{Scalability and Resource Management}: Scaling microservices dynamically to handle varying workloads requires sophisticated orchestration and efficient allocation of computing resources based on demand can be complex, especially in highly dynamic environments.
+    \item \textbf{Security and Compliance}: Security in microservice environments involves securing communication channels, implementing many protocols such as: authorization across distributed services, access controls and managing authentication. Ensuring compliance with regulatory requirements adds another layer of complexity to the resilience equation\cite{ResilientMicroserviceDesign}.
+
+\end{itemize}
+
+\subsubsection{Maintenability}
+Maintainability concerns how easily a microservice can be modified, scaled and deployed without affecting system performance. In a monolithic context, this is often a major issue: without strinct adherence to clean code principles, the codebase becomes large and entangled with dependencies, making updates difficult. On the contrary, a microservice improves \textit{code-level maintainability} thanks to the small size of the systems it is composed of. However, this advantage comes with a trade-off: That is a shift from the code to infrastructure. TThe distributed nature of microservices introduces challenges related to networking, data consistency, and synchronisation.
+Furthermore, since each element is part of a much larger system, organizational maintainability becomes critical, because it follows a different development path and life cycle from other services. This approach ensures that each service is maintainable and does not have to conform to the standards of other services in terms of maintainability and resilience. However, it is important to note that different microservices can change API standards and documentation. This causes many problems in microservices, especially if each microservice is managed differently by different teams. Therefore, strict governance and versioning strategies are required to prevent integration issues in this heterogeneous environment.
+
+Unfortunately, microservice architecture suffers from other maintainability issues, which can be caused by rapid service development and can lead to sudden growth, resulting in: 
+
+\begin{itemize}
+    \item \textbf{Code Duplication and Divergence}: since different teams move quickly, from the beginning they do not care about designing a clean architecture, thus changing APIs and business logic and making API tracking very tricky.
+    \item \textbf{ Inconsistent Standards}: \label{chap1:Inconsistent Standards} Different teams adopt different practices for managing microservices, such as logging, error handling, and REST patterns.
+    \item \textbf{Tight Coupling Through APIs}: Services may rely too heavily on each other's internals or synchronous APIs\cite{MonolithicArchitectureGFG}.
+    \item \textbf{Over-Proliferation of Services}: The ‘micro’ mindset encourages splitting everything.
+    \item \textbf{Operational Complexity}: Scaling services adds complexity to deployment, monitoring, logging, versioning, and rollback.
+    \item \textbf{Tooling and CI/CD Gaps}: New services may bypass shared pipelines or monitoring setups.
+    \item \textbf{Hidden Technical Debt}: Shortcuts are taken to meet scaling demands or launch faster. 
+\end{itemize}
+Maintainability suffers during rapid scale because speed often beats structure. Without enforced standards, proper tooling, and architectural discipline, the microservices landscape becomes chaotic, costly to change, and hard to understand.\cite{MaintainabilityMicroservices}
+\subsection{Use cases in real-world scenarios}
+In this section, we will discuss two pillars that have changed the modern world and that use microservices architecture in their systems. The first is Amazon, the global online retail giant, and the second is Uber, the company has been changed adding a new easy way of transport. 
+\subsubsection{Use case: Amazon} 
+The Amazon case highlights the difference between monolithic and microservices architecture, because this company began its approach to the digital world with a monolithic system, before migrating to a microservices system. Amazon, a company founded in the early 2000s, developed its retail information service as a large monolithic application, which give its rapid growth. The architecture used soon led to the need to continuously modify and upgrade the code with obsessive attention, because being a monolithic application means that any error could cause a completely crash of the system. Initially, the monolithic architecture worked quite well in Amazon's reality, but as the Amazon team grew larger and larger, working in a single codebase became very difficult. For this reason, they decided to change their architectural approach. In 2001, Amazon's team of engineers decided to refactor the codebase from scratch, breaking down the monolithic system into smaller, independent subsystems. The use of the microservices approach greatly helped the company, making the site much more maintainable by the development team, changing individual features and resources, and making the site much more efficient.
+Amazon developers analysed and broke down the source code into microservices. This approach was very complex precisely because the system was quite coupled. But once they managed to break down the code, they divided it among the different business units. The approach used was to divide the system into web service interfaces, i.e. assign each team a part of the web interface. For example, they developed a single service for the Buy button on a product page, a single service for the tax calculator function, and so on. Each function had its own section\cite{4MicroservicesExamples}.
+Each team was also assigned the task of resolving system bottlenecks. Each team succeeded in resolving them, thanks to the fact that each team was smaller, as was the size of the code base on which each team worked. This ensured greater attention to detail for each microservice. 
+The result of this approach is the image of the microservices operating at Amazon in 2008.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/chapter1/chapt1_1.1.4_2.png}
+    \caption{Real example of microservice archietetture in Amazon\cite{4MicroservicesExamples}}
+    \label{fig:amazonfig2}
+\end{figure}
+
+\subsubsection{Use case: Uber} 
+Similarly Amazon, Uber were also born as a monolithic system, despite being founded in 2010, a period in which Amazon's experience of transitioning from a monolithic application to a microservices application should have served as an example. 
+In this case, similar to Amazon, Uber also recognized the limitations of a monolithic application but it initially chose a monolithic architecture to prioritise speed of development and rapid release in a single city. Specifically, the development team faced challenges in efficiently launching new features, fixing bugs, and quickly supporting growing global operations. 
+Initially, Uber's architecture was structured as follows: 
+Passengers and drivers connected to Uber's monolith through a REST API\cite{4MicroservicesExamples}. Within the monolithic application, there were three adapters with embedded APIs for functions such as billing, payment, and text messages\cite{4MicroservicesExamples}. There was a single SQL database, which was the basis for all operations performed on the monolith. All features were within the monolith.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/chapter1/chap1_1.1.4_1.jpg}
+    \caption{Monolithic architetture of uber\cite{4MicroservicesExamples}}
+    \label{fig:uberfig2}
+\end{figure}
+
+To address these difficulties, Uber decided to break down its architecture from monolith to microservices. 
+Subsequently, developers built individual microservices for functions such as passenger management, trip management, and more\cite{4MicroservicesExamples}.. All these services are accessible through an API gateway. 
+Moving towards a microservices architecture, the Uber team immediately realised the advantages it offers. First of all, the system became immediately more maintainable by developers. Subsequently, the software grew faster because fast scaling was much easier. 
+The problem encountered by the Uber team, when the monolithic architecture had been adopted, was the coordination of all these microservice teams. For this reason, the company adopted a more documentation-oriented approach, attempting to remove the \textit{techinical debt} that many companies take on by writing adequate documentation from the outset. This has prevented confusion among teams and microservices. This is a problem we encountered in the section ~\ref{chap1:Inconsistent Standards}.
+The three key steps for implementing microservice standards at Uber included group buy-in, determining organisational production-ready requirements, and making production readiness part of the engineering culture. There need to be quantifiable requirements that can be tested.
+
+\textit{"It is a long process but makes a big difference"} said Fowler. \textit{"Developers all want to make the best thing they can. Standardization is not a gate, it is not a hindrance. It is something you can hand developers, saying, ‘I know you can build amazing services, here’s a system to help you build the best service possible.’ And developers see this and like it."}.\cite{TheServerSideMicroservicesExamples}
+
+So first they analysed the principles that resulted in availability: like fault tolerance, documentation, performance, reliability, stability, and scalability.
+After applying quantitative metrics and business logic that every developer could access. Once that was done, they turned those metrics into global standards for the second microservice.
+
+
+\begin{figure}[ht]
+    \centering
+
+    \subfloat[System design of microservices in Uber\cite{4MicroservicesExamples}]{%
+        \includegraphics[width=0.45\textwidth]{images/chapter1/chap1_1.1.4_3.jpg}
+        \label{fig:sub1}
+         }
+    \hfill
+    \subfloat[Real design of microservices in Uber\cite{4MicroservicesExamples}]{%
+        \includegraphics[width=0.45\textwidth]{images/chapter1/chap1_1.1.4_4.jpg}
+        \label{fig:uberfig2}
+    }
+
+    \caption{rappresentation of microservice in Uber}
+    \label{fig:two_subfigs}
+\end{figure}
+
+
+
+\section{Differences with Monolithic Architecture}
+After providing an overview of microservice architecture, we will move on to an overview of monolithic architecture, defining its characteristics and key principles. The section will conclude with a comparison between monolithic and microservice architecture.
+
+\subsection{Structure and characteristics of a monolithic application}
+In system design, monolithic archietteture is defined as a methodology that combines various parts of a system in a single codebase. Its history dates back to the early years of the computer era, in the mid-20th century. This approach stemmed from the technological constraints of the time: the code was written in low-level language and in a single codebase, because the code was written to be executed on a single machine. Over the years, as technology advanced, new architectures and new programming paradigms emerged. Starting with the new programming paradigm of object-oriented language, it adds abstraction layers from computer architecture, permitting an hardware-independent programming, and continuing with the ever-increasing development of networks. This led to the emergence of new systems and architectures, such as Service-Oriented Architecture (SOA). 
+
+In the monolithic architecture, all the process are thightly interconnected and they runs in a single service, this lead in difficultes in introducing updates in the entire system. This approach is simple to develop and deploy and is excellent for small, simple applications.
+This approach is particularly useful for small projects, where a quick and easy initial setup is required.
+Despite the gradual abandonment of this architecture due to the constant evolution of microservices, the monolithic approach may still be preferable to a microservices approach in some cases, due to its simplicity and ease of deployment in a single package. This makes this approach easy for small businesses with a limited number of people on the team. 
+Monolithic architecture has advantages in several contexts: 
+\begin{itemize}
+    \item \textbf{Simplicity}: Monolithic architecture offers more linear development and deployment. It is very simple for developers, as everything is grouped into a single package, giving them an overview of the system. 
+    \item \textbf{Cost-Effectiveness}: Monolithic architecture can be more economical for start-ups or medium-sized companies. This is because, compared to distributed systems, they require less infrastructure overhead.
+    \item \textbf{Performance}: Since the entire system runs on a single machine, it offers higher performance due to less communication overhead between components.
+    \item \textbf{Security}: Since there are fewer points of communication between services, monolithic systems drastically reduce vulnerable points. This makes them more secure, especially if adequate security measures have been developed.
+\end{itemize}
+
+In addition, microservices architecture provides several features: 
+
+\begin{itemize}
+    \item \textbf{Single Codebase}: The entire software is developed, managed, and deployed from a single repository. This approach makes the program simpler to manage and implement.\cite{MonolithicArchitectureGFG}
+    \item \textbf{Tight Coupling}: The components of architecture are highly interdependen. Since they operate within the same environment, a modification in one module often necessitates changes in others, increasing the risk of side effects and regression.
+    \item
+    \item \textbf{Shared Memory}: Monolithic applications typically share the same memory space, allowing components to communicate efficiently without the need for network overhead.
+    \item \textbf{Centralized Database}: Unlike distributed systems, monolithic components has a single monolithic database schema, typically using a single database instance for all  data storage needs.
+    \item \textbf{Layered Structure}: The system is traditionally organized into horizontal layers (such as Presentation, Business Logic, and Data Access). This might result in dependencies across layers even while it separates issues.
+    \item \textbf{Limited Scalability}: Because the entire application must be scaled at once, scaling a monolithic application can be difficult and frequently leads to inefficiencies and higher resource usage.
+\end{itemize}
+Monolithic system design focuses on preserving manageability, consistency, and simplicity within a single codebase. Some of the key design principles are:
+
+\begin{itemize}
+    \item \textbf{Modularity}: Although a monolithic system is physically unified, it is crucial to structure the code in a modular way.
+    \item \textbf{Separation of Concerns}: Application components are responsable of separating task, according to the separation of concerns principle. Is makes debugging easier and code organization clearer by separating the user interface logic from business and data access logic.
+    \item \textbf{Scalability}: Architecting the system to support horizontal scaling when necessary is known as scalability design. This might involve introducing asynchronous processing for resource-intensive operations, employing caching methods, or optimizing performance-critical components.
+    \item \textbf{Encapsulation}: The process of revealing only the interfaces that are required is called encapsulation, it inolves exposing the interaction while concealing the core operations of a component. By enforcing these clearly defined boundaries, developers can minimize dependencies; this ensures that internal changes do not propagate to other parts of the system, thereby simplifying maintenance and evolution.
+    \item \textbf{Consistency}: Maintaining consistency in coding styles, architectural patterns, and design principles across the entire codebase ensures clarity and predictability for developers.
+\end{itemize}
+
+\subsection{Conceptual comparison with microservices: advantages and disadvantages}
+In this section, we will discuss the advantages and disadvantages of monolithic and microservices architecture. Throughout this chapter, we have highlighted the differences with advantages and disadvantages of using these architectures, but, after that, we will try to summarise and outline them, providing a clear and straightforward overview with conclusions on their use.
+As indicated in the previous sections, but which we will try to summarise briefly, the advantages of microservices architecture are numerous compared to monolithic architecture. Microservices architecture, being the result of breaking down systems into smaller subsystems, is first and foremost a significant advantage when working with a large codebase, making it more manageable and divisible among the various development teams. Furthermore, as this architectural pattern is made up of several systems that can be combined with each other, it is much easier to scale and add more services that perform atomic operations than with a monolithic architecture. 
+Microservices are also a more robust pattern than a monolithic once, as if one service stops working, the overall performance of the system is not compromised. 
+Unfortunately, like any pattern, microservice architectures also have disadvantages, which, if not addressed, can still lead to serious malfunctions.
+
+\begin{itemize}
+    \item \textbf{Increased Complexity}: A microservices system must necessarily manage communication between all systems. This leads to complexity in data management within the application, with particular attention to consistency and communication, taking into account the fact that a change in response from one system necessarily leads to a change in interpretation by the calling system. 
+     \item \textbf{Distributed System Overheads}: Adopting a microservice architetture, it is important to setup a network communication between services, which adds overhead compared to in-process communication in monolithic systems. This can inevitably lead to latency and performance issues.
+      \item \textbf{Data Management Challenges}: Each microservice is responsabile to manage it's data. But sometimes, a resource could be shared between multiple microservices, this introduces the problem of data consistency and distributed transaction.
+       \item \textbf{Increased Deployment and Operational Overhead}: A microservice architetture requires to have an optimun infrastrucuture and tooling\cite{MicroservicesAdvantagesGFG}. Since there are multiple independent systems, Continuous Integration and Deployment processes can become difficult to manage, necessitating sophisticated monitoring and orchestration solutions.
+        \item \textbf{Inter-Service Communication Issues}: Microservices comunicate throught network, this introduce some problems that monolithic systems don't have, such as network failures, latency, and the need for proper API versioning and management
+        \item \textbf{ Testing Complexity}: Testing microservices can be more complicated than testing a monolithic application, as it involves ensuring that each service functions correctly both in isolation and in interaction with other services.
+\end{itemize}
+On the contrary, monolithic systems have advantages that, in some contexts, may be preferable to a microservices architecture.
+\begin{itemize}
+    \item \textbf{Simplicity of debugging}: Debugging a monolithic application is very simple because all the logic is located in a single code, making it easier to follow the flow of the program. 
+    \item \textbf{Simplicity of testing}: You can test the entire system more easily, knowing that the breakpoint occurs only within a single service, and not from external services.
+    \item \textbf{Simplicity of deployment}: Everything is deployed directly in a single file. Often, it contains both the frontend and backend. This makes deployment on infrastructure very simple. 
+    \item \textbf{Simplicity of application evolution}: It is easier to track and observe the evolution of software, as the code is clearer and more sequential than that of a monolithic application.
+    \item \textbf{Cross-cutting concerns and customisations are used only once}: All configuration relating to security, logging and monitoring is more manageable, precisely because the entire system follows the same standard that has been defined only once. 
+    \item \textbf{Simplicity in onboarding new team members}: A monolithic system is easier for new team members to understand. This is because they can see the whole system at a glance. 
+    \item \textbf{Low cost in the early stages of the application}: All source code is located in one place, packaged in a single deployment unit, and deployed. What can be easier? There is no overhead neither in infrastructure cost nor development cost.\cite{MonolithicArchitectureAdvantagesandDisadvantages}
+\end{itemize}
+
+Of course, even a monolithic system has its problems. The challenges that monolithic systems face are: 
+%gli ulitmi 3 punti sono stati copiati da una risorsa. 
+\begin{itemize}
+    \item \textbf{Long Deployment Cycles}: Compared to a microservice, a monolithic system has much longer deployment times, precisely because, although this architecture is simpler, as we have seen, it must undergo a testing and deployment cycle on all units, and this takes a long time. 
+    \item \textbf{Risk of Downtime}: A small bug in the monolithic system can completely take the entire system offline.
+    \item \textbf{Limited Scalability}: A monolithic system can only be scaled vertically, which makes such a system extremely limited when the number of users increases.
+    \item \textbf{Resource Consumption}: Compared to more lightweight architectures like microservices, monolithic applications may use more memory and CPU. This may result in decreased overall efficiency and increased infrastructure expenses.
+    \item \textbf{Limited Flexibility}: Compared to architectures with separated components, it can be more difficult to make modifications to a monolithic application. Modifications may require altering several areas of the codebase, which raises the possibility of adding errors or inconsistencies. 
+    \item \textbf{High code coupling}:  Of course, you can keep a clear service structure inside your repository. However, as practice shows, eventually, you will end up with a spaghetti code in at least a few places. As a result, the system becomes harder to understand especially for new team members\cite{MonolithicArchitectureAdvantagesandDisadvantages}.
+\end{itemize}
+In conclusion, neither architecture is universally superior. However by analyzing the evolution of major technology companies, and weighing the advantages and disadvantages of this approach, it is evident that a monolithic approach remains useful and fundamental in cases where a system needs to be structured for a small company limited development teams. Specifically, for scenarios involving limited development resources and stable traffic requirements, a monolith is often the most efficient choice. In this case, adopting a microservices application for this company could become highly inefficient and unnecessarily complex. Conversely, if a system is expected to grow rapidly, it is preferable to consider a microservices approach from the outset to avoid the need for massive refactoring later, as demonstrated by giants like Amazon and Uber.
+
+\section{Microservices Architecture in Real-World Context}
+In this section, we will focus on a more technical aspect of microservices architecture. We will analyze the algorithms and design patterns used in the real context, and finally go into detail about how microservices live within machines distributed around the world. We have also chosen to distribute the discussion of design patterns across the following sections, thus providing the topic covered and the design pattern used in that architecture. 
+
+\subsection{Architectural patterns and integration mechanisms in microservices}
+There are a multitude of design patterns in the literature that have emerged throughout the history of computer science. The aim of this section will be to analyze some of them and focus on the most widely used and important ones in a real-world context.
+\newcounter{designpatternArchitectural}
+\renewcommand{\thedesignpatternArchitectural}{\Roman{designpatternArchitectural}}
+
+\setcounter{designpatternArchitectural}{0}
+
+\stepcounter{designpatternArchitectural}
+\paragraph{\thedesignpatternArchitectural. API Gateway Pattern}
+The first design pattern we will focus on is the API gateway pattern. This architectural pattern provides external systems with a single entry point to microservices, which is the API gateway. The use of an API gateway reduces the risk of exposing microservices externally, thus ensuring security standards for each microservice, and also reduces the roundtrip between clients and services, precisely because the aim is to collect responses from multiple services. This obviously significantly increases system performance. In addition, this system ensures separation of concerns, meaning that the API gateway will be responsible for implementing cross-cutting features such as registration and authentication, thus avoiding redundancy and promoting consistency across all microservices. 
+
+An API gateway can be implemented directly from scratch, or by using third-party solutions such as Amazon API Gateway, Kong, and Azure API Management\cite{MicroservicesPatterns}. The use of third-party tools certainly has advantages, such as high scalability, robust support, regular updates, and reliability. Additionally, they provide complex services, such as caching and monitoring, that would otherwise be challenging to implement initially. 
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/chapter1/chap1_1.3_1.jpg}
+    \caption{API Gateway Architetture\cite{MicroservicesPatterns}}
+    \label{fig:uberfig2}
+\end{figure}
+\stepcounter{designpatternArchitectural}
+\paragraph{\thedesignpatternArchitectural. Database per Service Pattern}
+The \textit{Database per service design} pattern ensures that each microservice contains its own database. This decentralised approach allows for data encapsulation, autonomy and scalability, allowing each microservice to grow without impacting the others. It also allows each service to adopt the most suitable database technology for its needs, such as SQL, NoSQL, graph databases, and more. The use of a database per service implements all the properties of microservices. They ensure that data is correctly encapsulated, exposing only data through APIs. This guarantees security and integrity, thus preventing external access to the database.
+On the other hand, this aproach presents some challenges. 
+Firstly, it increases the overall system complexity, particularly in terms of data management and consistency. Secondly, it may lead to data duplication, which introduces the risk of redundancy and synchronization issues. Additionally, handling complex transactions and cross-service queries becomes more difficult. The need for robust synchronization mechanisms is also crucial to ensure data consistency across services.
+
+\stepcounter{designpatternArchitectural}
+\paragraph{\thedesignpatternArchitectural. Service Discovery Pattern}
+The Service Discovery Pattern is an architectural approach whose purpose is to keep track of an ever-increasing number of microservices, avoiding the situation where all microservices know all the others. Looking at figures \ref{fig:amazonfig2} and \ref{fig:uberfig2} shown above, it is clear that in a real-world context, keeping track of all microservices is a difficult and laborious task. For this reason, the service discovery pattern helps to simplify this aspect. The aim is to make discoverability of each service easier. Two types of Service Discovery patterns exist: Client-Side and Server-Side. 
+In \textbf{Client-Side Discovery}, multiple steps are involved; specifically, it relies on a "Service Registry" component, which keeps track of the locations of all available instances. When a \textbf{Consumer} needs to request a particular function, the discovery mechanism queries the Registry to obtain a list of available \textbf{provider} locations~\cite{MicroservicesPatternsServiceDiscoveryPatterns}. The list is returned by the Registry, and finally, the consumer routes the request to the chosen instance. 
+In the Server-Side Discovery Pattern, instead of querying the Service Registry, it makes a request to a DNS name. The benefit of this pattern is that the responsability in handled by deployment platform. The only limitation of this approach is, that you are a bit coupled to the deployment platform that you are using for the Service Registry\cite{MicroservicesPatternsServiceDiscoveryPatterns}.
+
+\begin{figure}[ht]
+    \centering
+
+    \subfloat[Example of Client Side Pattern\cite{MicroservicesPatternsServiceDiscoveryPatterns}]{%
+        \includegraphics[width=0.35\textwidth]{images/chapter1/chap1_1.3.1_1_1.jpg}
+        \label{fig:sub1}
+         }
+    \hfill
+    \subfloat[Example of Server Side Pattern\cite{MicroservicesPatternsServiceDiscoveryPatterns}]{%
+        \includegraphics[width=0.5\textwidth]{images/chapter1/chap1_1.3.1_2.jpg}
+        \label{fig:uberfig2}
+    }
+
+    \caption{Rappresenation of two Service Discovery Patterns}
+    \label{fig:two_subfigs}
+\end{figure}
+
+
+\stepcounter{designpatternArchitectural}
+\paragraph{\thedesignpatternArchitectural. Circuit Breaker}
+The Circuit Breaker architectural pattern is widely used in microservice environments. This design pattern aims to prevent cascading failures within an application. When some microservices depend on the response of others, the failure of the latter could lead to the failure of the former as well. This would cause a series of errors, which can be avoided by directly inserting a microservice isolation mechanism. 
+The Circuit Breaker pattern usually operates in three basic states: Closed, Open, and Half-Open. Each state represents a different phase in the management of interactions between services\cite{CircuitBreakerGFG}.
+
+
+\begin{itemize}
+    \item In the Closed state, the circuit breaker operates normally, allowing requests to flow through between services. During this phase, the circuit breaker monitors the health of the downstream service by collecting and analyzing metrics such as response times, error rates, or timeouts.
+    \item When the monitored metrics breach predetermined thresholds, signaling potential issues with the downstream service, the circuit breaker transitions to the Open state. In the Open state, the circuit breaker immediately stops forwarding requests to the failing service, effectively isolating it. This helps prevent cascading failures and maintains system stability by ensuring that clients receive timely feedback, even when services encounter issues.
+    \item \textbf{Half-Open State}: After a specified timeout period in the Open state, the circuit breaker transitions to the Half-Open state. This serves as a probationary period where a limited number of "probe" requests are allowed to pass through to the downstream service to test its recovery. If these requests succeed, the service is deemed healthy, and the circuit breaker resets to the \textbf{Closed} state. Conversely, if the probe requests fail, implies that the issue persists, and the circuit breaker reverts to the \textbf{Open} state to prevent further strain.
+    \item  After a specified timeout period in the Open state, transitions to Half-Open state.
+\end{itemize}
+
+
+\stepcounter{designpatternArchitectural}
+\paragraph{\thedesignpatternArchitectural. Backends for Frontends Pattern (BFF)}
+The Backend for Frontend (BFF) Pattern addresses the challenge of serving diverse client applications by creating a dedicated backend for each type of client—such as web, mobile, or IoT.
+While sharing similarities with the standard API Gateway, the BFF pattern diverges by exposing \textbf{multiple specialized interfaces} ($N$) rather than a single unified entry point. Each interface is dedicated to a specific client type (mobile, web, desktop, voice assistant, etc.).
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/chapter1/chap1_1.3.1_1.jpg}
+    \caption{Difference between general-purpose API and BFF}
+    \label{fig:differenceGPAPIBFF}
+\end{figure}
+Using a BFF approach certainly offers to developers the opportunity to boost development times within the market, providing to front-end team with a dedicated back-end to meet their needs. In this way, they can evolve without impacting other systems or teams, thanks to a separate back-end optimised for its context.
+\subsection{Orchestration and containerisation with Docker and Kubernetes}
+This section will explore a topic that is widely used in the development of the thesis, but also a very common approach in real-world microservice systems.
+Before discussing \textbf{orchestration}, it is necessary to introduce the concept of \textbf{containerisation}.
+In simple terms, containers act as "virtual boxes" that encapsulate an entire application and its dependencies, facilitating distribution across different environments. 
+In more formal terms, containerisation is the process of packing applications together and running them in an isolated environment with the necessary libraries and network processes for the application on the same operating system. This guarantees independence between the underlying infrastructure and the containerized application. This approach aims to solve the critical problem of dependencies, which made the sharing and installing certain applications a complex task.
+
+\subsubsection{Difference between containers and virtual machine}
+At first glance, one might assume that a container is equivalent to a virtual machine for software applications, but this is a misconception. The fundamental difference lies in the architecture, where a \gls{VM} creates its own operating system, emulating all the hardware it needs to run. In contrast, a containerised application uses the operating system's resources directly. Consequently, containers avoid the heavy overhead of running a separate OS for each application. Unlike a VM, which consumes significant resources to maintain a full operating system (including unused background services and libraries), a container only packages the specific dependencies needed. This makes containerised applications significantly lighter, both in terms of CPU usage and memory footprint.
+\subsubsection{Why Container Orchestration Is Needed}
+Container orchestration is the automated process of deploying, managing, scaling, and networking containers in production. It is moving from running a single container on a laptop to managing thousands of them across different environments, which docker has huge limitations. 
+When a system reaches this scale, manual intervention is no longer feasible. To maximize performance and reliability, an orchestration layer is required to address several critical operational challenges:
+\begin{itemize}
+    \item \textbf{Dynamic Scaling}: Automatically scaling containers up or down based on real-time traffic demand to ensure efficiency.
+    \item \textbf{Self-Healing}: Detecting failures and automatically restarting or replacing malfunctioning containers to recover from faults without human intervention.
+    \item \textbf{Service Discovery and Load Balancing}: Efficiently routing network traffic to the correct containers, ensuring high availability.
+    \item \textbf{Zero-Downtime Updates}: Managing application updates and rollbacks seamlessly, ensuring that the service remains available to users during deployment.
+\end{itemize}
+When there is only a single container running on a machine
+The most widely used environment for orchestration, and the one we will use throughout this discussion, is \textbf{kubernetes}. 
+
+
+Having defined the concept of orchestration, it is crucial to understand why adopting this technology is mandatory for microservice environments and large-scale applications.
+
+The primary advantage of orchestration environment is \textbf{Automation}, which relieve the programmer to configure with manual task all the system, that could be difficult also huge amount of system were built.
+In this case, orchestration platform acts as a control plane that continuously monitors the system and reacts in case of issues automatically.
+
+A second benefit of implementing an orchestration system is High availability and failover built-in, wich give to system uptime guarantees. As an example if a container fails, the orchestrator automatically detects the crash, restarts the instance, and redirects traffic to healthy containers, ensuring that service interruptions remain transparent to the end user.
+
+Finally, orchestration ensures better resouce utilizzation. Through intelligent scheduling, and a component named loadbalancer, the system distributes workloads efficiently across the available nodes. Furthermore, thanks to auto-scaling capability features, when a node is underutilized, the orchestrator can consolidate workloads and decommission the excess resources to reduce costs.
+
+
+\subsubsection{Docker: basic concepts}
+In this section, we will provide basic concepts about docker, in order to understand future discussion about deployment of a microservice service. 
+Docker introduces an execution model based on images and containers, which are the main abstraction of the system. Now we will list the basic concept of this tool of containerisation
+
+\begin{itemize}
+    \item \textbf{docker image} is an immutable template, which is built starting from a docker file. A docker file is a text documets containing all the directives that a system must compile in order to assemble the image. In the nextchapter we will discuss of images used for compiling microservices. 
+    \item \textbf{docker container} is an effimeral system, running on the host machine, that rappresent an istance of a docker image. 
+    \item \textbf{docker registry} is a memory place, often stored in cloud, where is possible to store images, so as to keep them versioned. 
+    \item \textbf{docker compose} is a tool for running and defining multiple-continaer in a docker environment. It is an high level orchestration tool, that makes easy too coordinare and managing multiple containers in a single application. Especially in development and testing environments. 
+\end{itemize}
+
+
+\subsubsection{Kubernetes: basic concepts}
+To fully grasp the mechanics of orchestration, it is essential to first define the fundamental building blocks of Kubernetes. This platform does not interact directly with simple containers but operates through a specific abstraction layer designed to manage resources and availability efficiently.
+
+At a high level, Kubernetes operates on a **Cluster** architecture, which is essentially a set of machines (physical or virtual) working together. Within this cluster, we can identify two main roles: the \textit{Control Plane}, which makes decisions (scheduling, responding to events), and the \textit{Worker Nodes}, which execute the actual workloads.
+
+Here are the core components that constitute the Kubernetes ecosystem:
+
+\begin{itemize}
+    \item \textbf{Pod}: The smallest and simplest Kubernetes object. A Pod represents a single instance of a running process in the cluster. Crucially, Kubernetes does not run containers directly; it runs Pods, which wrap one or more containers (e.g., Docker containers) that share the same storage, network IP, and execution context.
+    
+    \item \textbf{Node}: A Node is a worker machine in Kubernetes (either virtual or physical). Each Node is managed by the Control Plane and contains the services necessary to run Pods, such as the container runtime (e.g., Docker) and the Kubelet agent, which ensures the containers are running and healthy.
+    
+    \item \textbf{Service}: Since Pods are ephemeral—they can be created and destroyed dynamically, changing their IP addresses—Kubernetes uses Services to provide a stable networking endpoint. A Service is an abstraction which defines a logical set of Pods and a policy by which to access them, ensuring that network traffic always finds a running instance.
+    
+    \item \textbf{Deployment}: This is a higher-level abstraction that manages the state of Pods. Instead of creating Pods manually, you describe a \textit{desired state} in a Deployment (e.g., "I want 3 replicas of the nginx application"), and the Deployment Controller changes the actual state to the desired state at a controlled rate.
+\end{itemize}
+
+
+\section{Data Consistency and Communication between Microservices}
+Data consistency and communication between microservices is one of the most difficult challenge to face up. In this chapter we will provide basic concepts about this topics, focusing on solutions and algorithms that try to implement this features. After that, we will discuss about designing considerations about  consistency, reliability, and scalability, which are the core aspect of the microservice architetture. 
+
+\subsection{Consistency challenges in distributed systems}
+One of the most significant challenges when dealing with microservices is ensuring data consistency across the entire system. 
+This difficulty stems from the distributed nature of the architecture, which, as discussed in previous sections, relies on multiple databases running on independent systems, often geographically dispersed. 
+
+Unlike \textbf{monolithic architectures}, where the system communicates with a centralized database (simplifying transactional integrity), in a microservices architecture, data is distributed across multiple services. Consequently, ensuring consistency when multiple components need to update related data becomes a complex task that cannot rely on standard database transactions.
+
+Another example is the replications of datas through the different replicas in microservices. This technique is used in order to have better performances of the system, avoiding the user to contact directly the longest system, but has a replicas nearby the request that is issued. 
+In the licterature there are various types of concustency, now we will cover type of concistency like: 
+
+To better explain this concept, we will provide a clear example of a consistency issue typical of microservice environments. 
+Consider an e-commerce application where, if a customer buys an item, the system must deduct stock from the inventory, process the payment, and confirm the order. 
+If each step is executed by a different microservice and the payment fails, the system must ensure that the product is not permanently deducted from the inventory and that the order is not confirmed. 
+
+This scenario highlights the \textbf{consistency problem}: the system must guarantee that all services reflect the same final state. In case of an error at any step, the system must avoid an inconsistent state and roll back changes gracefully.
+
+Another relevant aspect is data replication across different nodes. This technique is used to improve system performance and reduce latency, allowing users to interact with a replica geographically closer to their location rather than connecting to a distant central server. 
+In the literature, there are various models of data consistency. The following sections will cover the primary types, such as:
+
+\begin{itemize}
+    \item \textbf{Eventual Consistency}: In some applications, consistency is not the core of the infrastructure, so weaker consistency guarantees are acceptable. This model is applicable to systems where data stores are seldom written by few processes, but there is a big amount of read requests. This model has a slow propagation of updates, and all the replicas of a distributed system will become identical if no updates take place for a long time, although the duration is not strictly specified.
+    
+    \item \textbf{Strong Consistency}: It is used in data-centric environments, where consistency is the main core of the application. This model ensures the maximum consistency in all microservices by blocking all data operations until all replicas have the same data. This system, even if it is the most secured model, is really slow.
+    
+    \item \textbf{Continuous Consistency}: Continuous consistency could be measured as the deviation tolerated from strong consistency. This means that consistency is guaranteed up to a threshold, which cannot be exceeded.
+    
+    \item \textbf{Sequential Consistency}: This model, designed by Lamport, ensures that all nodes in a distributed environment execute the same order of operations, as if there were a global scheduling of operations. It is usually used in environments where exchanging the order of instructions could lead to further consistency problems.
+    
+    \item \textbf{Causal Consistency}: This model is less restrictive than Sequential Consistency and ensures that the order of operations reflects their causal relationships. It means that if one event influences another, all nodes in the system will agree on the order in which these events occurred.
+    
+    \item \textbf{Entry Consistency}: This model ensures that shared data is made consistent only when a synchronization operation occurs, such as acquiring or releasing a lock. Each shared variable (or “entry”) is associated with a synchronization object (like a lock or semaphore). It is usually referred to the critical section of a \gls{DS}. Consistency properties in entry consistency are expressed in terms of read, write, lock, and unlock operations. Acquiring a lock can only succeed when all writes to the associated shared data have been completed; exclusive access to a lock can only succeed if no other process has exclusive or nonexclusive access to that lock, and nonexclusive access to a lock is allowed only if any previous exclusive access has been completed.
+\end{itemize}
+
+\subsubsection{Approaches to Achieve Consistency}
+After explaining the different consistency models, it is necessary to introduce the different approaches to achieve data consistency inside a distributed system. 
+
+\begin{itemize}
+    \item \textbf{Distributed Transactions (2PC)}: A distributed transaction is a transaction that tries to be consistent in all services, as if it were made in a single microservice. Especially, it uses the two-phase commit protocol to ensure either all services commit or all rollback. But this protocol ensures strong consistency in exchange for designing a complex and not scalable distributed system. This is used in financial application environments.
+    
+    \item \textbf{Saga Pattern}: This pattern aims to break a transaction into smaller steps. Each service performs its action and publishes an event. If one step fails, compensating actions are triggered to undo previous steps. Sagas can be implemented using two alternative approaches: Choreography, where the decision making and sequencing are distributed among the saga participants that communicate by exchanging events; or Orchestration, which means one service is responsible for acting as a coordinator, sending commands to saga participants and collecting their responses.
+
+    \item \textbf{Event-Driven Consistency}: This model is applied in environments where there is a need to update states which are dependent on other states. So a service typically publishes a domain event, usually in a queue (a communication method which we will go deeper into in the next section), and all other services, which have been already registered, update their state accordingly. 
+    
+    \item \textbf{CQRS (Command Query Responsibility Segregation)}: Separates write and read models. Commands change state, and queries read from a different store. Sync is achieved via events. This model scales well, but ensures eventual consistency, which is not suitable for systems requiring immediate reliability. 
+    
+    \item \textbf{Idempotency and Retry Mechanisms}: Ensure that repeated operations produce the same result. For example, if a payment fails and the user makes the payment twice, the amount of the payment will not be duplicated. 
+\end{itemize}
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/chapter1/chap1_1.4.1_1.png}
+    \caption{Example of saga pattern}
+    \label{fig:amazonfig2}
+\end{figure}
+
+
+\subsection{Communication methods: synchronous and asynchronous}
+Unlike monolithic architectures, where a process calls another through a procedure, in microservice applications the communication between services is a big challenge that must be considered during the design phase. Due to the distributed nature of the system, each microservice has its own process and is deployed independently from others; this makes the communication of each microservice really challenging. 
+For this reason, there isn't a method call anymore, but new protocols arising: these are \textbf{communication protocols}. The communication protocols can be divided into three macrosections, that are: 
+\begin{itemize}
+    \item \textbf{Synchronous}: Consists of real-time request and response processes.
+    \item \textbf{Asynchronous}: Services communicate without waiting for an immediate response.
+    \item \textbf{Hybrid}: Combination of synchronous and asynchronous methods. Used when certain operations require real-time responses, while others can be event-driven.
+\end{itemize}
+
+\subsubsection{Synchronous}
+Now we take a look at what protocols are used in synchronous microservice communication. The synchronous communication is based on two essential protocols: HTTP or GRPC, for returning a sync response. In this communication, the client sends a request and it will not end until it receives a response from the service. So that means the client code blocks its thread until the response arrives from the server. The client could time out if no response is provided. 
+The HTTP protocol, and the secured HTTPS one, are the most used in microservices environments. It consists of exposing APIs, and through this network protocol, via calls like GET, POST, PUT, DELETE, the client can request and modify resources. 
+Another way of communication is the RPC protocol, which stands for \textit{Remote Procedure Calls}. it is a protocol whose core "allows a computer program to execute a procedure or function in a different address space, typically on a remote computer or server, as if it were a local procedure call". This is useful when we want to start a procedure, or want to execute complex calculations, triggering a remote procedure on the server. Even if, in some use cases, RPC performs better than REST, it is not so used anymore.
+
+
+\subsubsection{Asynchronous}
+In Asynchronous communication, the client sends a request but it doesn’t wait for a response from the service. The key point here is that the client thread is not blocked while waiting for a response.
+
+The most popular protocols utilized in this approach is: \textbf{AMQP (Advanced Message Queuing Protocol)}. This communication method is especially common in event-driven design patterns, which rely on queues as the primary means of transport. By employing AMQP protocols, the client sends messages through message broker systems like Kafka and RabbitMQ. The message producer usually does not wait for a response. These messages are consumed by subscriber systems asynchronously, without the need for an immediate response.
+
+Asynchronous communication is divided into two implementations: one-to-one mode, also called queue, and one-to-many, also known as topics. 
+In both implementations, the pattern adopted is the publish and subscribe mechanism. Basically, infrastructures like event-buses or message brokers are employed; their aim is to publish events between multiple microservices, where communication is achieved by subscribing to these events in an asynchronous way.
+
+\begin{figure}[ht]
+    \centering
+
+    \subfloat[Example with exactly one consumer]{%
+        \includegraphics[width=0.45\textwidth]{images/chapter1/chap1_1.4.1_2.png}
+        \label{fig:sub1}
+         }
+    \hfill
+    \subfloat[Example with zero or more consumers]{%
+        \includegraphics[width=0.45\textwidth]{images/chapter1/chap1_1.4.1_3.png}
+        \label{fig:uberfig2}
+    }
+
+    \caption{rappresentation of microservice in Uber}
+    \label{fig:two_subfigs}
+\end{figure}
+
+
+The best tools utilized in most microservice implementations are Kafka and RabbitMQ. Implementations regarding message brokers involve a broker, usually Kafka or RabbitMQ, with queues. Here, the entity publishing the event, the so-called publisher, can emit the event into the queue, and it can be consumed asynchronously by a consumer. Usually, a producer publishes an event into a queue or a topic (such as 'order-emitter', etc.), where there could be one or more consumers that consume this message.
+
+After explaining asynchonous methods, let's give a look about the most famous implementations like RabbitMQ and Kafka.
+
+RabbitMQ is a popular open-source message broker based on the Advanced Message Queuing Protocol (AMQP), which can support protocols like websocket and MQTT. In RabbitMQ, there are several exchanges, that are supported
+
+\begin{itemize}
+    \item Direct exchange: it forwards messages to the queues whose binding keys exactly matches the routing key of the message
+    \item Fanout exchange - it broadcasts the message to all the matching queues
+\item Topic exchange - this exchange is connected to a set of queues via binding keys that must be a list of dot-delimited words: two special wild-chars are allowed ('*' and '\#'), matching, respectively, a single
+word or a sequence of zero or more words
+\item Headers exchange - it bases its routing decisions on message headers rather than routing key
+\end{itemize}
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/chapter1/chap1_1.4.1_4.png}
+    \caption{Strucutre of different exchanges in RabbitMQ}
+    \label{fig:amazonfig2}
+\end{figure}
+
+Apache Kafka, on the other hand, is an event streaming platform based on a cluster of servers. The particularity of this tool is its high scalability and fault tolerance. It consists of a message storage, so the messages arrive and are stored and indexed, indicating the position in the log. It is fault-tolerant because data is replicated across the number of Kafka servers, and scalable, as Kafka clusters can be elastically scaled by simply adding more servers. Topics are the core of Kafka; each topic can be divided into partitions, and when a message arrives, it is stored in a single partition. Partitioning allows Kafka to scale and parallelize the data processing by distributing the load among multiple consumers. Each message is uniquely identified by its offset (a long) in the topic log; it has a key, a value, and a timestamp, and messages with the same key are stored in the same partition, keeping their arrival order.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/chapter1/chap1_1.4.1_4.png}
+    \caption{Scheme of how kafka works}
+    \label{fig:amazonfig2}
+\end{figure}
+
