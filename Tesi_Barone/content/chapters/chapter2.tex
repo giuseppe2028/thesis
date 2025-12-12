@@ -1,0 +1,53 @@
+\chapter{Introduction to Micronaut Technology with GraalVM}
+The focus of this chapter is giving an introduction to the two frameworks used in this comparison: Springboot and GraalVM, highlighting the difference between them, both philosophically and technologically. 
+Sequentially, we will move on reporting theoretical performance comparison found on literature, for trying to confirm on reject this comparison applying them to the microservice middleware we are going to implement.
+
+\section{Introduction and Motivations for the Comparison}
+This section exposes briefly introduction and motivations by which is useful talking about these two frameworks, and why we used them in developing our middleware.
+
+\subsection{Motivations For Comparing Spring Boot and Micronaut}
+Until this point, we have not yet considered the frameworks used to implement microservice applications. Before addressing the motivations behind the comparison between Spring Boot and Micronaut, it is important to note that both frameworks are built upon Java programming language. As is widely recognized, Java is an \textbf{Object-Oriented Programming (OOP)}, predominantly used in web development, due to its platform  independence,  robust  ecosystem, and  strong  community  support \cite{PDFEngineeringCloudNative2025}.
+
+The widespread adoption of Java language derives from the necessity to simplify web server development. Prior to the introduction of modern frameworks, such as those we have cited, Java enterprise application development was managed by technologies relied on Servlet-based technologies such as J2EE (Java EE). These instruments required a highly manual configuration, which rendered web server project development really chaotic and complex. 
+An Example is dependency management, which was manually configured by developers; In fact,  verbose XML files were used to manage dependencies for each component \cite{developeradvocatesaspirantLifeSpringBootSpring2024}.
+Moreover, also in context of microservice, building numerous applications from scratch, proved challenging; therefore, the introduction of abstraction layers became essential for web application developers.
+
+As discussed in the previous chapter, large-scale modern information systems, nowadays, rely heavily on the microservices architecture. Given that the number of the users will grow rapidly, monitoring key performance metrics is vital. For this reason, development teams are increasingly adopting frameworks that are not strictly related to the dimension of the community behind that technology, but based on performance metrics, where factors such as startup time, resource consumption, scalability, and operational efficiency play a critical role in this decision. 
+
+The primary motivation for comparing Spring Boot with Micronaut lies in the shifting technological landscape: the transition from monolithic to distributed systems implies a need for **lightweight** solutions. Since modern architectures may involve hundreds or **thousands** of microservices, the use of heavy technologies can lead to significant performance issues.
+Thus, in cloud-native and serverless environments, where instances scale up and down frequently, frameworks with faster startup time and lower memory usage offer significant operational advantages.
+
+In the upcoming chapters, We will explore the main distinctions between the two frameworks in more detail; specifically, we will examine their design objectives, common use cases, and—above all—how they function inside the framework of our development project. 
+The primary reason of comparing Spring Boot with Micronaut is to determine whether, while operating in contemporary, cloud-native environments, more recent, AOT-optimized, lightweight frameworks can indeed produce appreciable performance advantages over more traditional enterprise solutions.
+The most popular framework for enterprise-grade Java microservices is Spring Boot, while Micronaut represents a new generation of frameworks created especially for native execution with GraalVM, quick startup times, and low memory usage.  The goal of this work is to specifically assess the performance impact of AOT-oriented approaches (Micronaut with GraalVM) against the conventional, widely used enterprise standard (Spring Boot), for this reason contemporary JVM frameworks like Quarkus could have been included in the comparison.  Adding more frameworks will greatly increase the complexity of the experiment without yielding commensurate benefits and introduce factors unrelated to the main research issue.
+
+
+\subsection{Use cases and philosophical differences between the two frameworks}
+
+In this section, we are going to analyse the main differences between these two frameworks, focusing on their design philosophy and intended use cases.
+Spring Boot was designed for building web applications, and, as reported in the documentation "What is Java Spring Boot?": "Java™ Spring Boot (Spring Boot) is a tool that makes developing web applications and microservices with Java Spring Framework faster and easier" \cite{WhatJavaSpring2021}. 
+This framework is the industry standard for high availability and ease of use. In fact, it solves the problem of developing server applications by providing ready-to-use production-grade solutions, eliminating boilerplate configuration, and focusing on rapid development\cite{IntroductionSpringBoot01:35:41+00:00}.
+Spring Boot was introduced to replace the traditional Spring Framework, which required heavy XML configuration, making it complex for beginners. Philosophically, it prioritises developer productivity over resource efficiency, providing\cite{IntroductionSpringBoot01:35:41+00:00}: 
+\begin{itemize}
+\item Auto-Configuration: Autonomous configuration of components based on dependency. This is removing the need for manual XML setup.
+\item Easy Maintenance and Creation of REST Endpoints: With annotations like \texttt{@RestController}, creating REST endpoints is straightforward.
+\item Embedded Tomcat Server: Spring Boot includes an embedded Tomcat server, eliminating the need for manual setup. 
+\item Easy Deployment: The application can be packaged into a single JAR or WAR file that can be deployed easily into a cloud environment. 
+\end{itemize}
+
+The main cons of this framework are the large size of the JARs ("fat jars") and the heavy startup time, which we will analyse deeply in section \ref{sec:Spring Boot Application}.
+As just introduced, Micronaut, in contrast, is a JVM-based framework designed specifically for building modular, easy-to-test microservices and serverless applications\cite{MicronautVsSpring2024}.
+The main objective of this framework is to build a web application as light as possible. To achieve this, differently from Spring, Micronaut introduces a new paradigm called \textbf{ahead-of-time (AOT) compilation}. 
+The usage of this paradigm, which we will explain technically in the following patterns, represents a significant improvement for performance because it allows the framework to precompute dependency injection and other framework-related tasks \cite{MicronautVsSpring2024}.
+A key difference that Micronaut introduces in its features is a new implementation of dependency injection that eliminates the need for reflection at runtime, thereby improving performance \cite{MicronautVsSpring2024}.
+Moreover, Micronaut, in combination with GraalVM, offers the possibility to build native image support. This implies the possibility to build native applications for the host machine, drastically reducing memory usage.
+Unfortunately, due to his birth in May 2018, Micronaut does not rely on a huge amount of resources for developing web applications like Spring Boot.  
+
+\section{Spring Boot Architecture: The Runtime-Based Approach}
+\label{sec:Spring Boot Application}
+Spring Boot, is the most used framework for building web server application using Java programming language. Spring Boot was released in April 2014 to reduce some of the burdens of developing a Java web application. It allowed developers to focus more on the business logic rather than the boilerplate technical code and associated configurations\cite{somnathmusibSpringBootPractise}. The framework provides an additional layer between the user and the Spring Framework, providing a ready to use application, that the user can simply start without additional configurations.  
+
+\subsection{The Spring IoC Container and Bean Lifecycle}
+
+
+\subsection{Auto-configuration and the Convention-over-Configuration Paradigm}

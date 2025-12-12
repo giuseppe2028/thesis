@@ -1,0 +1,2 @@
+{"rule":"POSSESSIVE_APOSTROPHE","sentence":"^\\QWe will now explain the fundamental pillars of resilience in a microservices architecture: Fault Isolation: A microservices architecture guarantees resilience in the event of a single service failure, as there are many separate services and the failure of a single service does not bring down the entire system.\\E$"}
+{"rule":"EN_UNPAIRED_BRACKETS","sentence":"^\\QSpring boot was design for building web application and, as reported in documentation \"What is Java Spring Boot?\"\\E$"}

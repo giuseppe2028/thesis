@@ -81,26 +81,27 @@ Scalability is a fundamental factor in the design of a microservices system. A s
 There are two types of system scalability: 
 
 \begin{itemize}
-    \item \textbf{Scaling up}: The ability of a system to cope with an growing workloads and requests by expanding computational capabilities, such as storage, communication elements, CPU, RAM, and other hardware components. Obviously, the scaling up approach is limiting, due to the limitations of currently available resources.
-    \item \textbf{Scaling out}: The ability of a system to cope the increasing workload simply by changing the way an architectural system is defined, for example adding the number of machines deployed in a system. This approach is particularly used in the real world, where distributed systems are made up of multiple machines with limited computational capacity, which together guarantee the ability to handle a greater workload by working in parallel.
+    \item \textbf{Vertical scaling (Scaling Up)}: The ability of a system to manage a growing workloads and requests by expanding computational resources of a single node, such as storage, CPU, RAM, and other hardware components. The scaling up approach is limited by limitations of currently available hardware resources.
+    \item \textbf{Horizontal scaling (Scaling Out)}: The ability of a system to manage the increasing workload by changing how an architectural system is defined, for instance adding the number of nodes deployed in a system. This approach is particularly used in the real world, where distributed systems consist of multiple nodes with limited computational capacity, which guarantee the ability to handle a greater workload by working in parallel.
 \end{itemize}
 
-Having defined these approaches, we will focus on the scaling out method, which has the greatest impact in the real world of distributed systems, defining several techniques that can be used to implement scaling out, such as:
+The horizontal scaling, which has the greatest impact in the real world of distributed systems, can be implemented by several techniques, such as:
 
 \begin{itemize}
-    \item \textbf{Partitioning and Work Distribution}: this consists of dividing a task into smaller subtasks and distributing them across different nodes of the system in order to balance the workload. In this way, if requests increase, it is possible to add more processes on more machines to handle them effectively.
+    \item \textbf{Partitioning and Work Distribution}: consists of splitting a task into smaller subtasks and distributing them across different nodes of the system in order to balance the workload. 
+    In this way, if requests increase, it is possible to add more processes on more machines to handle them effectively.
     
-    \item \textbf{Replication}: this involves the ability to create copies of processes or services, distributing the workload or data among these replicas to improve performance. For example, it is possible to have multiple replicas of the same microservice distributed across different nodes, thus increasing the access speed and availability of the service. Web server clustering\footnote{A server cluster is a collective group of servers distributed and managed under a single IP address.\cite{Whatisserverclustering}} is a classic example of how multiple servers can distribute the load and increase availability.
+    \item \textbf{Replication}: involves the ability to create copies of processes or services, distributing the workload or data among these replicas to improve performance. For example, it is possible to have multiple replicas of the same microservice distributed across different nodes, in order to increase the access speed and availability of the service. Web server clustering\footnote{A server cluster is a collective group of servers distributed and managed under a single IP address.\cite{Whatisserverclustering}} is a classic example of how multiple servers can distribute the load and increase availability.
     
-    \item \textbf{Communication Latency Hiding / Limitation}: this technique aims to reduce communication latency between services. Asynchronous communication is often preferred over synchronous communication in order to minimise response times and improve overall system efficiency.
+    \item \textbf{Communication Latency Hiding / Limitation}: aims to reduce communication latency between services. Asynchronous communication is often preferred over synchronous communication in order to minimize response times and improve overall system efficiency.
 \end{itemize}
 
 
 \subsubsection{Universal Scalability Law}
-To understand the limits of system growth, it is essential to provide an introduction on how the system reacts to increased scalability. for this we will discuss about the \textbf{universal scalability law} (USL). This law, proposed by Australian computer systems researcher Dr. Neil Gunther, studies the performance behaviour of a computer system as the number of nodes or resources increases. According to the USL, there is a maximum scalable capacity threshold beyond which increasing the number of nodes does not result in a linear increase in performance.
-For example, suppose we have a server that handles 2,000 transactions per second per node. By increasing the number of nodes to two, we would expect a throughput of 4,000 transactions per second. In reality, this is not entirely true, as their final throughput is slightly less than 4,000 transactions per second. This discrepancy becomes more evident as the number of nodes increases, until a threshold is reached beyond which the system not only stops scaling, but may even show a \textit{retrograde speedup}, i.e. a decrease in performance despite the addition of resources.
+To understand the limits of system growth, it is essential to introduce the \textbf{universal scalability law} (USL), proposed by Australian computer systems researcher Dr. Neil Gunther, that studies the performance behavior of a computer system as the number of nodes or resources increases. According to the USL, there is a maximum scalable capacity threshold beyond which increasing the number of nodes does not result in a linear increase in performance.
+For instance, supposing having a server that handles 2,000 transactions per second per node, by increasing the number of nodes to two, we would expect a throughput of 4,000 transactions per second. In reality, this is not entirely true, as their final throughput is slightly less than 4,000 transactions per second. This discrepancy becomes more evident as the number of nodes increases, until a threshold is reached beyond which the system not only stops scaling, but may even show a \textit{retrograde speedup}, i.e. a decrease in performance despite the addition of resources.
 
-The behaviour described by the USL is illustrated in Figure:\ref{fig:USLGraph}
+The behavior described by the USL is illustrated in Figure:\ref{fig:USLGraph}
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.7\textwidth]{images/chapter1/chap1_1.1.3_1.png}
@@ -109,31 +110,30 @@ The behaviour described by the USL is illustrated in Figure:\ref{fig:USLGraph}
 \end{figure}
 
 
+The behavior predicted by the Universal Scalability Law can be formally modeled by the following equation (derived from queueing theory)\cite{USLPerfDynamics}, which approximates the system's throughput:
 
-For this reason, the universal scalability law has been proposed, according to which the throughput of a system can be approximated by the following equation (derived from queueing theory)\cite{USLPerfDynamics}:
 \begin{equation}
     X(N) = \frac{N\cdot\gamma}{(1+\alpha\cdot(N-1)+\beta\cdot N\cdot (N-1))}
 \end{equation}
 where:
-\begin{itemize}
+\begin{itemize} %TODO ricordati di mettere la fonte
     \item $N$ is the number of concurrent units;
-    \item $\gamma$ represents the normalised throughput of the system with a single unit;
-    \item $\alpha$ indicates \textit{resource contention}, that is the cost of contention for shared resources 
-          (e.g. databases, locks, queues or centralised components);
-    \item $\beta$ represents the \textit{coherency cost}, that is the cost of synchronisation and communication 
-          between system units (e.g. message exchange, state replication or coordination between microservices).
+    \item $\gamma$ represents the normalized throughput of the system with a single unit;
+    \item $\alpha$ indicates \textit{resource contention}, that is the cost of contention for shared resources (e.g. databases, locks, queues or centralized components);
+    \item $\beta$ represents the \textit{coherency cost}, that is the cost of synchronization and communication between system units (e.g. message exchange, state replication or coordination between microservices).
 \end{itemize}
 \subsubsection{Resilience}
-\textit{Resilience},in a system, is the ability of a system to recover from a state of continuous failure. Especially in a microservices system, resilience is crucial, as it represents how stable and operational a system is. This is particularly true in a system where numerous services have been developed and the possibility of failure is inevitable due to causes such as network, hardware and software issues.
-We will now explain the fundamental pillars of resilience in a microservices architecture:
+\textit{Resilience} is the ability of a system to recover from a state of continuous failure, crucial in microservice systems as it represents how stable and operational a system is. This necessity is amplified in distributed environments, where the high number of interacting services inherently increases the probability of failure due to network latency, hardware degradation, and software faults.
+
+These are the fundamental pillars of resilience in a microservices architecture:
 \begin{itemize}
-    \item \textbf{Fault Isolation}: A microservices architecture guarantees resilience in the event of a single service failure, as there are many separate services and the failure of a single service does not bring down the entire system.
-    \item \textbf{Continuous Availability}: As a direct consequence of the previous point, the fact that the system is made up of smaller services, and that it is possible to replicate these services in different parts of the globe, means that a fairly high level of availability can be maintained even when several services are unavailable. 
+    \item \textbf{Fault Isolation}: A microservices architecture guarantees resilience in the event of a single service failure, ensuring that as an individual service is \textbf{isolated} and prevented from cascading into a complete system outage. 
+    \item \textbf{Continuous Availability}: The system is divided into smaller services, and it is possible to replicate them in different parts of the globe, which means that a higher level of availability can be maintained even when several services are unavailable. 
      \item \textbf{Scalability and Elasticity}: Resilience is closely related to the scalability of a system, because if the capacity of a system increases, it reduces the number of failures it encounters. In addition, if a system can scale autonomously, i.e. add or remove nodes, resilience will be better guaranteed than in a completely static system that cannot be scaled. 
     \item \textbf{Improved User Experience}: The resilience of a system can lead to an improvement in the overall user experience, precisely because resilience ensures that, even in the event of a failure, by implementing the \textit{graceful degradation} technique, an application provides the necessary functionality to users without compromising the overall user experience.
-    \item \textbf{Quick Recovery}: Resiliet system can recover from failures automatically or with less manual intervention than a monolithic application. This reduces downtime and all impacts on service     
+    \item \textbf{Quick Recovery}: Resilient system can recover from failures automatically or with less manual intervention than a monolithic application. This reduces downtime and all impacts on service     
     \item \textbf{Fault Tolerance}: Resilient systems provide important mechanisms to increase fault tolerance, such as \textbf{circuit breakers} (isolating a system), \textbf{timeouts}, and \textbf{retries} to handle all errors and degrade performance without causing service disruptions.
-    \item \textbf{Decentralised Communication}: A resilient system is most often based on a system that uses a decentralised approach as a means of communication, such as asynchronous messaging or event-driven architectures. This ensures that in the event of communication problems, the system continues to function.
+    \item \textbf{Decentralized Communication}: A resilient system is most often based on a system that uses a decentralised approach as a means of communication, such as asynchronous messaging or event-driven architectures. This ensures that in the event of communication problems, the system continues to function.
       \item \textbf{Continuous Testing and Deployment}: A resilient system must undergo rigorous testing and continuous deployment practices. Automated testing, canary deployments, and blue-green deployments help ensure that changes are rolled out safely and do not introduce vulnerabilities or instabilities.
 \end{itemize}
 
@@ -145,8 +145,8 @@ Obviously, a microservices system that is as resilient as possible brings with i
     In a microservice application, although slipping the system in microservice is a milestone, it could introduce  complexity in monitoring, debugging, and tracing across the entire system. Understanding how each service interacts and ensuring fault isolation becomes challenging.\cite{ResilientMicroserviceDesign}
     \item \textbf{Inter-service Communication}: Microservices deeply rely on communication between services, often over networks. This introduces network failures, latency, and potential communication bottlenecks, requiring robust communication protocols and error-handling mechanisms.
     \item \textbf{Data Consistency and Integrity}: One of the most challenging aspects in a microservice architecture is maintaining data consistency across each service, especially within distributed transactions.
-    The most time-consuming feature to desing and maintain is ensuring data integrity and synchronization without introducing performance bottlenecks or single points of failure.
-    \item \textbf{Resilience Testing}: Testing the resilience of microservices systems is complex and often requires specialized tools and techniques. It demands various failure scenarios, like network partitions, service outages, or latency spikes. It could be a game changer for guaranteeing system stability.
+    The most time-consuming feature to design and maintain is ensuring data integrity and synchronization without introducing performance bottlenecks or single points of failure.
+    \item \textbf{Resilience Testing}: Testing the resilience of microservices systems is complex and often requires specialized tools and techniques. It demands various failure scenarios, such as network partitions, service outages, or latency spikes. It could be a game changer for guaranteeing system stability.
     \item \textbf{Dependency Management}: In big information systems, in which there are massive numbers of business functions, Microservices, oftner are streactly interconnected, making them dependent on external services and APIs. Managing dependencies and handling versioning, backward compatibility, and service discovery become critical to maintaining system resilience\cite{ResilientMicroserviceDesign}.
     \item \textbf{Scalability and Resource Management}: Scaling microservices dynamically to handle varying workloads requires sophisticated orchestration and efficient allocation of computing resources based on demand can be complex, especially in highly dynamic environments.
     \item \textbf{Security and Compliance}: Security in microservice environments involves securing communication channels, implementing many protocols such as: authorization across distributed services, access controls and managing authentication. Ensuring compliance with regulatory requirements adds another layer of complexity to the resilience equation\cite{ResilientMicroserviceDesign}.
@@ -525,12 +525,12 @@ In both implementations, the pattern adopted is the publish and subscribe mechan
     \centering
 
     \subfloat[Example with exactly one consumer]{%
-        \includegraphics[width=0.45\textwidth]{images/chapter1/chap1_1.4.1_2.png}
+        \includegraphics[width=0.3\textwidth]{images/chapter1/chap1_1.4.1_2.png}
         \label{fig:sub1}
          }
     \hfill
     \subfloat[Example with zero or more consumers]{%
-        \includegraphics[width=0.45\textwidth]{images/chapter1/chap1_1.4.1_3.png}
+        \includegraphics[width=0.1\textwidth]{images/chapter1/chap1_1.4.1_3.png}
         \label{fig:uberfig2}
     }
 

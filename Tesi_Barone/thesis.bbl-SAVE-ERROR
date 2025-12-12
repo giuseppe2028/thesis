@@ -1,0 +1,514 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.3 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{none/global//global/global/global}
+    \entry{newman2015microservices}{book}{}{}
+      \name{author}{1}{}{%
+        {{hash=b6be43602c2787d279f8522a7d9713db}{%
+           family={Newman},
+           familyi={N\bibinitperiod},
+           given={Sam},
+           giveni={S\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Sebastopol, CA}%
+      }
+      \list{publisher}{1}{%
+        {O'Reilly Media}%
+      }
+      \strng{namehash}{b6be43602c2787d279f8522a7d9713db}
+      \strng{fullhash}{b6be43602c2787d279f8522a7d9713db}
+      \strng{fullhashraw}{b6be43602c2787d279f8522a7d9713db}
+      \strng{bibnamehash}{b6be43602c2787d279f8522a7d9713db}
+      \strng{authorbibnamehash}{b6be43602c2787d279f8522a7d9713db}
+      \strng{authornamehash}{b6be43602c2787d279f8522a7d9713db}
+      \strng{authorfullhash}{b6be43602c2787d279f8522a7d9713db}
+      \strng{authorfullhashraw}{b6be43602c2787d279f8522a7d9713db}
+      \field{sortinit}{6}
+      \field{sortinithash}{b33bc299efb3c36abec520a4c896a66d}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Building {{Microservices}}: {{Designing Fine-Grained Systems}}}
+      \field{year}{2015}
+    \endentry
+    \entry{The360Blog}{misc}{}{}
+      \name{author}{1}{}{%
+        {{hash=83981f9e4864842d8feb690bd0aa451e}{%
+           family={Frye},
+           familyi={F\bibinitperiod},
+           given={Ma-Keba},
+           giveni={M\bibinithyphendelim K\bibinitperiod}}}%
+      }
+      \strng{namehash}{83981f9e4864842d8feb690bd0aa451e}
+      \strng{fullhash}{83981f9e4864842d8feb690bd0aa451e}
+      \strng{fullhashraw}{83981f9e4864842d8feb690bd0aa451e}
+      \strng{bibnamehash}{83981f9e4864842d8feb690bd0aa451e}
+      \strng{authorbibnamehash}{83981f9e4864842d8feb690bd0aa451e}
+      \strng{authornamehash}{83981f9e4864842d8feb690bd0aa451e}
+      \strng{authorfullhash}{83981f9e4864842d8feb690bd0aa451e}
+      \strng{authorfullhashraw}{83981f9e4864842d8feb690bd0aa451e}
+      \field{sortinit}{7}
+      \field{sortinithash}{108d0be1b1bee9773a1173443802c0a3}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{https://www.salesforce.com/blog/microservice-design-principles/}
+      \field{title}{6 {{Fundamental Principles}} of {{Microservice Design}}}
+      \field{year}{2023}
+    \endentry
+    \entry{avizienis2004basic}{article}{}{}
+      \name{author}{4}{}{%
+        {{hash=486826e6249ce8f61c17ac38e7ae734e}{%
+           family={Avizienis},
+           familyi={A\bibinitperiod},
+           given={A.},
+           giveni={A\bibinitperiod}}}%
+        {{hash=be52b6c37491cd69baa25dad4ea89bc6}{%
+           family={Laprie},
+           familyi={L\bibinitperiod},
+           given={J.-C.},
+           giveni={J\bibinithyphendelim C\bibinitperiod}}}%
+        {{hash=f26cbb394b5656daa31bb6abc2288166}{%
+           family={Randell},
+           familyi={R\bibinitperiod},
+           given={B.},
+           giveni={B\bibinitperiod}}}%
+        {{hash=16fe6acbafedacbc1adfc64a88257933}{%
+           family={Landwehr},
+           familyi={L\bibinitperiod},
+           given={C.},
+           giveni={C\bibinitperiod}}}%
+      }
+      \strng{namehash}{fecd6448545c12417ad301f0ae74979f}
+      \strng{fullhash}{221c8904ae39f33df7f40b1aae085a2c}
+      \strng{fullhashraw}{221c8904ae39f33df7f40b1aae085a2c}
+      \strng{bibnamehash}{221c8904ae39f33df7f40b1aae085a2c}
+      \strng{authorbibnamehash}{221c8904ae39f33df7f40b1aae085a2c}
+      \strng{authornamehash}{fecd6448545c12417ad301f0ae74979f}
+      \strng{authorfullhash}{221c8904ae39f33df7f40b1aae085a2c}
+      \strng{authorfullhashraw}{221c8904ae39f33df7f40b1aae085a2c}
+      \field{sortinit}{9}
+      \field{sortinithash}{0a5ebc79d83c96b6579069544c73c7d4}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{IEEE Transactions on Dependable and Secure Computing}
+      \field{number}{1}
+      \field{title}{Basic {{Concepts}} and {{Taxonomy}} of {{Dependable}} and {{Fault-Tolerant Computing}}}
+      \field{volume}{1}
+      \field{year}{2004}
+      \field{pages}{11\bibrangedash 33}
+      \range{pages}{23}
+    \endentry
+    \entry{MicrosoftMicroservices2023}{misc}{}{}
+      \name{author}{1}{}{%
+        {{hash=614e7789840996b5d882c0cad1ad0971}{%
+           family={{Microsoft Learn}},
+           familyi={M\bibinitperiod}}}%
+      }
+      \strng{namehash}{614e7789840996b5d882c0cad1ad0971}
+      \strng{fullhash}{614e7789840996b5d882c0cad1ad0971}
+      \strng{fullhashraw}{614e7789840996b5d882c0cad1ad0971}
+      \strng{bibnamehash}{614e7789840996b5d882c0cad1ad0971}
+      \strng{authorbibnamehash}{614e7789840996b5d882c0cad1ad0971}
+      \strng{authornamehash}{614e7789840996b5d882c0cad1ad0971}
+      \strng{authorfullhash}{614e7789840996b5d882c0cad1ad0971}
+      \strng{authorfullhashraw}{614e7789840996b5d882c0cad1ad0971}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{https://learn.microsoft.com/en-us/azure/architecture/guide/architecture-styles/microservices}
+      \field{title}{Microservices {{Architecture Style}}}
+      \field{year}{2023}
+    \endentry
+    \entry{PolyglotMedium}{misc}{}{}
+      \name{author}{1}{}{%
+        {{hash=9e2676cb6db918aae9cb68d4d3e6d17a}{%
+           family={Navlani},
+           familyi={N\bibinitperiod},
+           given={Nehal},
+           giveni={N\bibinitperiod}}}%
+      }
+      \strng{namehash}{9e2676cb6db918aae9cb68d4d3e6d17a}
+      \strng{fullhash}{9e2676cb6db918aae9cb68d4d3e6d17a}
+      \strng{fullhashraw}{9e2676cb6db918aae9cb68d4d3e6d17a}
+      \strng{bibnamehash}{9e2676cb6db918aae9cb68d4d3e6d17a}
+      \strng{authorbibnamehash}{9e2676cb6db918aae9cb68d4d3e6d17a}
+      \strng{authornamehash}{9e2676cb6db918aae9cb68d4d3e6d17a}
+      \strng{authorfullhash}{9e2676cb6db918aae9cb68d4d3e6d17a}
+      \strng{authorfullhashraw}{9e2676cb6db918aae9cb68d4d3e6d17a}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{annotation}{Published: Blog post on Medium}
+      \field{title}{The {{Power}} of {{Polyglot Architecture}}: {{A Guide}} for {{Modern Organisations}}}
+      \field{year}{2023}
+    \endentry
+    \entry{Whatisserverclustering}{misc}{}{}
+      \name{author}{1}{}{%
+        {{hash=191b3cd66c54815acc830b39ba70b5bf}{%
+           family={Purkis},
+           familyi={P\bibinitperiod},
+           given={Melanie},
+           giveni={M\bibinitperiod}}}%
+      }
+      \strng{namehash}{191b3cd66c54815acc830b39ba70b5bf}
+      \strng{fullhash}{191b3cd66c54815acc830b39ba70b5bf}
+      \strng{fullhashraw}{191b3cd66c54815acc830b39ba70b5bf}
+      \strng{bibnamehash}{191b3cd66c54815acc830b39ba70b5bf}
+      \strng{authorbibnamehash}{191b3cd66c54815acc830b39ba70b5bf}
+      \strng{authornamehash}{191b3cd66c54815acc830b39ba70b5bf}
+      \strng{authorfullhash}{191b3cd66c54815acc830b39ba70b5bf}
+      \strng{authorfullhashraw}{191b3cd66c54815acc830b39ba70b5bf}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{What Is Server Clustering?}
+    \endentry
+    \entry{USLWSO2}{misc}{}{}
+      \name{author}{1}{}{%
+        {{hash=7022751ef5aedc63054d4867fe532e57}{%
+           family={Research},
+           familyi={R\bibinitperiod},
+           given={WSO2},
+           giveni={W\bibinitperiod}}}%
+      }
+      \strng{namehash}{7022751ef5aedc63054d4867fe532e57}
+      \strng{fullhash}{7022751ef5aedc63054d4867fe532e57}
+      \strng{fullhashraw}{7022751ef5aedc63054d4867fe532e57}
+      \strng{bibnamehash}{7022751ef5aedc63054d4867fe532e57}
+      \strng{authorbibnamehash}{7022751ef5aedc63054d4867fe532e57}
+      \strng{authornamehash}{7022751ef5aedc63054d4867fe532e57}
+      \strng{authorfullhash}{7022751ef5aedc63054d4867fe532e57}
+      \strng{authorfullhashraw}{7022751ef5aedc63054d4867fe532e57}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{https://wso2.com/blog/research/scalability-modeling-using-universal-scalability-law/}
+      \field{title}{Scalability {{Modeling Using Universal Scalability Law}}}
+    \endentry
+    \entry{USLPerfDynamics}{misc}{}{}
+      \name{author}{1}{}{%
+        {{hash=b345e9561d2384f78531e7c3dff0248c}{%
+           family={Gunther},
+           familyi={G\bibinitperiod},
+           given={Neil},
+           giveni={N\bibinitperiod}}}%
+      }
+      \strng{namehash}{b345e9561d2384f78531e7c3dff0248c}
+      \strng{fullhash}{b345e9561d2384f78531e7c3dff0248c}
+      \strng{fullhashraw}{b345e9561d2384f78531e7c3dff0248c}
+      \strng{bibnamehash}{b345e9561d2384f78531e7c3dff0248c}
+      \strng{authorbibnamehash}{b345e9561d2384f78531e7c3dff0248c}
+      \strng{authornamehash}{b345e9561d2384f78531e7c3dff0248c}
+      \strng{authorfullhash}{b345e9561d2384f78531e7c3dff0248c}
+      \strng{authorfullhashraw}{b345e9561d2384f78531e7c3dff0248c}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{http://www.perfdynamics.com/Manifesto/USLscalability.html}
+      \field{title}{Universal {{Scalability Law}}}
+    \endentry
+    \entry{ResilientMicroserviceDesign}{misc}{}{}
+      \name{author}{1}{}{%
+        {{hash=67279e786f0af82b0feb7d225a871e9d}{%
+           family={Khaitan},
+           familyi={K\bibinitperiod},
+           given={Nitin},
+           giveni={N\bibinitperiod}}}%
+      }
+      \strng{namehash}{67279e786f0af82b0feb7d225a871e9d}
+      \strng{fullhash}{67279e786f0af82b0feb7d225a871e9d}
+      \strng{fullhashraw}{67279e786f0af82b0feb7d225a871e9d}
+      \strng{bibnamehash}{67279e786f0af82b0feb7d225a871e9d}
+      \strng{authorbibnamehash}{67279e786f0af82b0feb7d225a871e9d}
+      \strng{authornamehash}{67279e786f0af82b0feb7d225a871e9d}
+      \strng{authorfullhash}{67279e786f0af82b0feb7d225a871e9d}
+      \strng{authorfullhashraw}{67279e786f0af82b0feb7d225a871e9d}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{annotation}{Published: Blog post on geeksforgeeks}
+      \field{title}{Resilient {{Microservices Design}}}
+      \field{year}{2025}
+    \endentry
+    \entry{MonolithicArchitectureGFG}{misc}{}{}
+      \name{author}{1}{}{%
+        {{hash=f1e069787ece74531d112559945c6871}{%
+           family={{GeeksforGeeks}},
+           familyi={G\bibinitperiod}}}%
+      }
+      \strng{namehash}{f1e069787ece74531d112559945c6871}
+      \strng{fullhash}{f1e069787ece74531d112559945c6871}
+      \strng{fullhashraw}{f1e069787ece74531d112559945c6871}
+      \strng{bibnamehash}{f1e069787ece74531d112559945c6871}
+      \strng{authorbibnamehash}{f1e069787ece74531d112559945c6871}
+      \strng{authornamehash}{f1e069787ece74531d112559945c6871}
+      \strng{authorfullhash}{f1e069787ece74531d112559945c6871}
+      \strng{authorfullhashraw}{f1e069787ece74531d112559945c6871}
+      \field{extraname}{1}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{https://www.geeksforgeeks.org/system-design/monolithic-architecture-system-design/}
+      \field{title}{Monolithic {{Architecture}} - {{System Design}}}
+    \endentry
+    \entry{MaintainabilityMicroservices}{misc}{}{}
+      \name{author}{1}{}{%
+        {{hash=a32a153e75271820ac3e0a5566ed241c}{%
+           family={Zladhe},
+           familyi={Z\bibinitperiod},
+           given={Shraddha},
+           giveni={S\bibinitperiod}}}%
+      }
+      \strng{namehash}{a32a153e75271820ac3e0a5566ed241c}
+      \strng{fullhash}{a32a153e75271820ac3e0a5566ed241c}
+      \strng{fullhashraw}{a32a153e75271820ac3e0a5566ed241c}
+      \strng{bibnamehash}{a32a153e75271820ac3e0a5566ed241c}
+      \strng{authorbibnamehash}{a32a153e75271820ac3e0a5566ed241c}
+      \strng{authornamehash}{a32a153e75271820ac3e0a5566ed241c}
+      \strng{authorfullhash}{a32a153e75271820ac3e0a5566ed241c}
+      \strng{authorfullhashraw}{a32a153e75271820ac3e0a5566ed241c}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{https://medium.com/@shraddhazladhe/maintainability-in-microservices-architecture-principles-you-shouldnt-ignore-3837d655742b}
+      \field{title}{Maintainability in {{Microservices Architecture}}: {{Principles You Shouldn}}'t {{Ignore}}}
+      \field{year}{2025}
+    \endentry
+    \entry{4MicroservicesExamples}{misc}{}{}
+      \name{author}{1}{}{%
+        {{hash=7459b1400ca08ab707ff9745db4eaf3f}{%
+           family={Bennett},
+           familyi={B\bibinitperiod},
+           given={Terence},
+           giveni={T\bibinitperiod}}}%
+      }
+      \strng{namehash}{7459b1400ca08ab707ff9745db4eaf3f}
+      \strng{fullhash}{7459b1400ca08ab707ff9745db4eaf3f}
+      \strng{fullhashraw}{7459b1400ca08ab707ff9745db4eaf3f}
+      \strng{bibnamehash}{7459b1400ca08ab707ff9745db4eaf3f}
+      \strng{authorbibnamehash}{7459b1400ca08ab707ff9745db4eaf3f}
+      \strng{authornamehash}{7459b1400ca08ab707ff9745db4eaf3f}
+      \strng{authorfullhash}{7459b1400ca08ab707ff9745db4eaf3f}
+      \strng{authorfullhashraw}{7459b1400ca08ab707ff9745db4eaf3f}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{https://blog.dreamfactory.com/microservices-examples}
+      \field{title}{4 {{Microservices Examples}}: {{Amazon}}, {{Netflix}}, {{Uber}}, and {{Etsy}}}
+      \field{year}{2025}
+    \endentry
+    \entry{TheServerSideMicroservicesExamples}{misc}{}{}
+      \name{author}{1}{}{%
+        {{hash=7d04d30b46dd498efe3f9c06ad93b317}{%
+           family={Lawton},
+           familyi={L\bibinitperiod},
+           given={George},
+           giveni={G\bibinitperiod}}}%
+      }
+      \strng{namehash}{7d04d30b46dd498efe3f9c06ad93b317}
+      \strng{fullhash}{7d04d30b46dd498efe3f9c06ad93b317}
+      \strng{fullhashraw}{7d04d30b46dd498efe3f9c06ad93b317}
+      \strng{bibnamehash}{7d04d30b46dd498efe3f9c06ad93b317}
+      \strng{authorbibnamehash}{7d04d30b46dd498efe3f9c06ad93b317}
+      \strng{authornamehash}{7d04d30b46dd498efe3f9c06ad93b317}
+      \strng{authorfullhash}{7d04d30b46dd498efe3f9c06ad93b317}
+      \strng{authorfullhashraw}{7d04d30b46dd498efe3f9c06ad93b317}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{https://www.theserverside.com/feature/How-microservices-patterns-helped-Uber-systems-perform-better}
+      \field{title}{How Microservices Patterns Made {{Uber}}'s Architecture Perform Better}
+      \field{year}{2025}
+    \endentry
+    \entry{MicroservicesAdvantagesGFG}{misc}{}{}
+      \name{author}{1}{}{%
+        {{hash=f1e069787ece74531d112559945c6871}{%
+           family={{GeeksforGeeks}},
+           familyi={G\bibinitperiod}}}%
+      }
+      \strng{namehash}{f1e069787ece74531d112559945c6871}
+      \strng{fullhash}{f1e069787ece74531d112559945c6871}
+      \strng{fullhashraw}{f1e069787ece74531d112559945c6871}
+      \strng{bibnamehash}{f1e069787ece74531d112559945c6871}
+      \strng{authorbibnamehash}{f1e069787ece74531d112559945c6871}
+      \strng{authornamehash}{f1e069787ece74531d112559945c6871}
+      \strng{authorfullhash}{f1e069787ece74531d112559945c6871}
+      \strng{authorfullhashraw}{f1e069787ece74531d112559945c6871}
+      \field{extraname}{2}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{https://www.geeksforgeeks.org/system-design/what-are-the-advantages-and-disadvantages-of-microservices-architecture/}
+      \field{title}{Advantages and {{Disadvantages}} of {{Microservices Architecture}}}
+    \endentry
+    \entry{MonolithicArchitectureAdvantagesandDisadvantages}{misc}{}{}
+      \name{author}{1}{}{%
+        {{hash=8f6fe1f794445dabc9c0a7ab6f57d0e5}{%
+           family={Dushenin},
+           familyi={D\bibinitperiod},
+           given={Oleksii},
+           giveni={O\bibinitperiod}}}%
+      }
+      \strng{namehash}{8f6fe1f794445dabc9c0a7ab6f57d0e5}
+      \strng{fullhash}{8f6fe1f794445dabc9c0a7ab6f57d0e5}
+      \strng{fullhashraw}{8f6fe1f794445dabc9c0a7ab6f57d0e5}
+      \strng{bibnamehash}{8f6fe1f794445dabc9c0a7ab6f57d0e5}
+      \strng{authorbibnamehash}{8f6fe1f794445dabc9c0a7ab6f57d0e5}
+      \strng{authornamehash}{8f6fe1f794445dabc9c0a7ab6f57d0e5}
+      \strng{authorfullhash}{8f6fe1f794445dabc9c0a7ab6f57d0e5}
+      \strng{authorfullhashraw}{8f6fe1f794445dabc9c0a7ab6f57d0e5}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{https://datamify.medium.com/monolithic-architecture-advantages-and-disadvantages-e71a603eec89?source=rss------java-5}
+      \field{title}{Monolithic {{Architecture}}. {{Advantages}} and {{Disadvantages}}}
+      \field{year}{2021}
+    \endentry
+    \entry{MicroservicesPatterns}{misc}{}{}
+      \name{author}{1}{}{%
+        {{hash=d6caef8f76c46b77c5448166d0e794f3}{%
+           family={D'Antonio},
+           familyi={D\bibinitperiod},
+           given={Davide},
+           giveni={D\bibinitperiod}}}%
+      }
+      \strng{namehash}{d6caef8f76c46b77c5448166d0e794f3}
+      \strng{fullhash}{d6caef8f76c46b77c5448166d0e794f3}
+      \strng{fullhashraw}{d6caef8f76c46b77c5448166d0e794f3}
+      \strng{bibnamehash}{d6caef8f76c46b77c5448166d0e794f3}
+      \strng{authorbibnamehash}{d6caef8f76c46b77c5448166d0e794f3}
+      \strng{authornamehash}{d6caef8f76c46b77c5448166d0e794f3}
+      \strng{authorfullhash}{d6caef8f76c46b77c5448166d0e794f3}
+      \strng{authorfullhashraw}{d6caef8f76c46b77c5448166d0e794f3}
+      \field{sortinit}{4}
+      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{https://medium.com/finanza-tech/microservices-patterns-25da7fb85bd9}
+      \field{title}{Microservices {{Patterns}}}
+      \field{year}{2023}
+    \endentry
+    \entry{MicroservicesPatternsServiceDiscoveryPatterns}{misc}{}{}
+      \name{author}{1}{}{%
+        {{hash=7264d83f351abd92be7680ff38fad275}{%
+           family={Nanayakkara},
+           familyi={N\bibinitperiod},
+           given={Crishantha},
+           giveni={C\bibinitperiod}}}%
+      }
+      \strng{namehash}{7264d83f351abd92be7680ff38fad275}
+      \strng{fullhash}{7264d83f351abd92be7680ff38fad275}
+      \strng{fullhashraw}{7264d83f351abd92be7680ff38fad275}
+      \strng{bibnamehash}{7264d83f351abd92be7680ff38fad275}
+      \strng{authorbibnamehash}{7264d83f351abd92be7680ff38fad275}
+      \strng{authornamehash}{7264d83f351abd92be7680ff38fad275}
+      \strng{authorfullhash}{7264d83f351abd92be7680ff38fad275}
+      \strng{authorfullhashraw}{7264d83f351abd92be7680ff38fad275}
+      \field{sortinit}{4}
+      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{https://medium.com/cloud-native-daily/microservices-patterns-part-03-service-discovery-patterns-97d603b9a510}
+      \field{title}{Microservices {{Patterns}}: {{Service Discovery Patterns}}}
+      \field{year}{2023}
+    \endentry
+    \entry{CircuitBreakerGFG}{misc}{}{}
+      \name{author}{1}{}{%
+        {{hash=f1e069787ece74531d112559945c6871}{%
+           family={{GeeksforGeeks}},
+           familyi={G\bibinitperiod}}}%
+      }
+      \strng{namehash}{f1e069787ece74531d112559945c6871}
+      \strng{fullhash}{f1e069787ece74531d112559945c6871}
+      \strng{fullhashraw}{f1e069787ece74531d112559945c6871}
+      \strng{bibnamehash}{f1e069787ece74531d112559945c6871}
+      \strng{authorbibnamehash}{f1e069787ece74531d112559945c6871}
+      \strng{authornamehash}{f1e069787ece74531d112559945c6871}
+      \strng{authorfullhash}{f1e069787ece74531d112559945c6871}
+      \strng{authorfullhashraw}{f1e069787ece74531d112559945c6871}
+      \field{extraname}{3}
+      \field{sortinit}{4}
+      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{https://www.geeksforgeeks.org/system-design/what-is-circuit-breaker-pattern-in-microservices/}
+      \field{title}{Circuit {{Breaker Pattern}} in {{Microservices}}}
+    \endentry
+    \entry{PDFEngineeringCloudNative2025}{article}{}{}
+      \field{sortinit}{5}
+      \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
+      \field{labeltitlesource}{shorttitle}
+      \field{abstract}{PDF |{} As enterprises undergo digital transformation, the need for scalable, maintainable, and resilient software architectures has become critical.... |{} Find, read and cite all the research you need on ResearchGate}
+      \field{journaltitle}{ResearchGate}
+      \field{langid}{english}
+      \field{month}{9}
+      \field{shorttitle}{({{PDF}}) {{Engineering Cloud-Native Microservices}} in {{Java}}}
+      \field{title}{({{PDF}}) {{Engineering Cloud-Native Microservices}} in {{Java}}: {{A Scalable Approach}} for {{Modern Enterprise Software Architectures}}}
+      \field{urlday}{9}
+      \field{urlmonth}{12}
+      \field{urlyear}{2025}
+      \field{year}{2025}
+      \field{urldateera}{ce}
+      \verb{file}
+      \verb /Users/giuseppebarone/Zotero/storage/5DFZJUVP/395724328_Engineering_Cloud-Native_Microservices_in_Java_A_Scalable_Approach_for_Modern_Enterpr.html
+      \endverb
+    \endentry
+    \entry{developeradvocatesaspirantLifeSpringBootSpring2024}{misc}{}{}
+      \name{author}{1}{}{%
+        {{hash=f5c9f4b61be463020ca6baee3042bd8a}{%
+           family={{Developer Advocates Aspirant}},
+           familyi={D\bibinitperiod}}}%
+      }
+      \strng{namehash}{f5c9f4b61be463020ca6baee3042bd8a}
+      \strng{fullhash}{f5c9f4b61be463020ca6baee3042bd8a}
+      \strng{fullhashraw}{f5c9f4b61be463020ca6baee3042bd8a}
+      \strng{bibnamehash}{f5c9f4b61be463020ca6baee3042bd8a}
+      \strng{authorbibnamehash}{f5c9f4b61be463020ca6baee3042bd8a}
+      \strng{authornamehash}{f5c9f4b61be463020ca6baee3042bd8a}
+      \strng{authorfullhash}{f5c9f4b61be463020ca6baee3042bd8a}
+      \strng{authorfullhashraw}{f5c9f4b61be463020ca6baee3042bd8a}
+      \field{sortinit}{5}
+      \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Join us on a nostalgic trip back to the early 2000s, when Java developers faced the complexities of Traditional Spring Framework. Discover what it was like to manage XML configurations, build web applications, handle RESTful APIs, and navigate the daunting Configuration Maze.}
+      \field{title}{The {{Life Before SpringBoot}} |{} {{Spring Framework}} |{} {{A Journey Through Early Java Development}}}
+      \field{urlday}{9}
+      \field{urlmonth}{12}
+      \field{urlyear}{2025}
+      \field{year}{2024}
+      \field{urldateera}{ce}
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+

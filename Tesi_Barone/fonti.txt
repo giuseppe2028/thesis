@@ -73,3 +73,9 @@ https://www.geeksforgeeks.org/system-design/backend-for-frontend-pattern/
 https://www.geeksforgeeks.org/system-design/what-is-circuit-breaker-pattern-in-microservices/
 https://medium.com/mobilepeople/backend-for-frontend-pattern-why-you-need-to-know-it-46f94ce420b0
 }
+
+
+
+Comparison of Representative Microservices Technologies in Terms of Performance for Use for Projects Based on Sensor Networks
+https://pmc.ncbi.nlm.nih.gov/articles/PMC9607224/?utm_source=chatgpt.com
+
